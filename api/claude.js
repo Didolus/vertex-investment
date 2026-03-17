@@ -10,8 +10,15 @@ module.exports = async function handler(req, res) {
   if (!apiKey) return res.status(500).json({ error: 'ANTHROPIC_API_KEY not configured' });
 
   try {
-    let body = req.body;
-    if (typeof body === 'string') body = JSON.parse(body);
+    // Manually read raw body stream — works regardless of Vercel body parser state
+    const rawBody = await new Promise((resolve, reject) => {
+      let data = '';
+      req.on('data', chunk => { data += chunk; });
+      req.on('end', () => resolve(data));
+      req.on('error', reject);
+    });
+
+    const body = JSON.parse(rawBody);
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -31,5 +38,5 @@ module.exports = async function handler(req, res) {
 };
 
 module.exports.config = {
-  api: { bodyParser: { sizeLimit: '1mb' } },
+  api: { bodyParser: false },
 };
