@@ -689,7 +689,7 @@ Date: ${new Date().toDateString()}
 Generate a DAILY scan for short-term trading opportunities (1-5 day holds). Look for: momentum plays, technical breakouts, earnings reactions, macro news catalysts.
 Return ONLY valid JSON:
 {"opportunities":[{"ticker":"TICKER","name":"Company Name","sector":"Sector","thesis":"2-3 sentence short-term thesis with specific catalyst","catalysts":["Specific near-term catalyst"],"risks":["Main risk"],"technicals":"1 sentence technical setup","sources":[{"title":"Source name","description":"What to search for"}],"horizon":"short","urgent":false,"urgentReason":"","targetPrice":0,"stopLoss":0,"currentPrice":0,"upside":8,"riskLevel":"Medium","conviction":"Medium"}]}
-Generate 6-8 short-term opportunities. Use real tickers. Return ONLY the JSON.`
+Generate exactly 5 short-term opportunities. Keep each field concise. Return ONLY the JSON.`
 :
 `You are an expert investment research AI. Investor profile:
 - Sectors: ${i.sectors.join(', ')||'General'}
@@ -708,17 +708,35 @@ ${i.note?`- Special notes: ${i.note}`:''}
 
 Generate a weekly investment intelligence report. Return ONLY valid JSON:
 {"reportSummary":"3-4 sentence market overview with macro context","hasUrgent":false,"opportunities":[{"ticker":"TICKER","name":"Company Name","sector":"Sector","thesis":"3-4 sentence investment thesis explaining the core opportunity","catalysts":["Specific upcoming catalyst 1","Specific upcoming catalyst 2","Specific upcoming catalyst 3"],"risks":["Key risk 1","Key risk 2"],"valuation":"2 sentences on current valuation vs peers or historical","technicals":"1 sentence on price action or technical setup","sources":[{"title":"Source or publication name","description":"What to search for or read"},{"title":"Source 2","description":"What to look for"}],"horizon":"medium","urgent":false,"urgentReason":"","targetPrice":0,"stopLoss":0,"currentPrice":0,"upside":15,"riskLevel":"Medium","conviction":"High"}]}
-Generate 8-12 opportunities. Use real tickers. Respect all profile preferences. For each opportunity provide a thorough analysis. Return ONLY the JSON.`;
+Generate exactly 6 opportunities. Use real tickers. Respect all profile preferences. Keep each field concise — thesis max 2 sentences, catalysts max 2 items, risks max 2 items, sources max 2 items. Return ONLY the JSON.`;
 
   try{
     setScanMsg(isDaily?'AI scanning for daily plays…':'AI scanning markets…');
-    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:4000,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:6000,messages:[{role:'user',content:prompt}]})});
     if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`Error ${res.status}`);}
     const data=await res.json();
     const text=(data.content||[]).map(b=>b.text||'').join('');
     const s=text.indexOf('{'),e=text.lastIndexOf('}');
     if(s===-1)throw new Error('Could not parse AI response');
-    const p=JSON.parse(text.slice(s,e+1));
+    let p;
+    try{
+      p=JSON.parse(text.slice(s,e+1));
+    }catch(parseErr){
+      // Try to recover truncated JSON by trimming to last complete opportunity
+      let raw=text.slice(s,e+1);
+      // Find the last complete opportunity object
+      const lastComplete=raw.lastIndexOf('},
+    {');
+      const lastComplete2=raw.lastIndexOf('},{');
+      const cutAt=Math.max(lastComplete,lastComplete2);
+      if(cutAt>0){
+        // Close the array and object properly
+        raw=raw.slice(0,cutAt+1)+']}';
+        try{p=JSON.parse(raw);}catch(e2){throw new Error('AI response too long — try scanning with fewer sectors selected in My Interests.');}
+      }else{
+        throw new Error('AI response could not be parsed. Try again.');
+      }
+    }
     let newOpps=(p.opportunities||[]).map((o,idx)=>({...o,id:Date.now()+idx,scannedAt:new Date().toISOString(),isDaily}));
 
     setScanMsg('Fetching live prices…');
