@@ -416,6 +416,29 @@ Generate 3-5 realistic opportunities with real tickers. At most 1 urgent. Return
     if(s===-1)throw new Error('Could not parse AI response');
     const p=JSON.parse(text.slice(s,e+1));
     S.opps=(p.opportunities||[]).map((o,idx)=>({...o,id:Date.now()+idx,scannedAt:new Date().toISOString()}));
+
+    // Fetch live prices for each opportunity from Alpha Vantage
+    const avKey=getAVKey();
+    if(avKey){
+      document.getElementById('scan-loading').querySelector('span').textContent='Fetching live prices…';
+      for(let i=0;i<S.opps.length;i++){
+        try{
+          const r=await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${S.opps[i].ticker}&apikey=${avKey}`);
+          const d=await r.json();
+          const livePrice=parseFloat(d['Global Quote']?.['05. price']);
+          if(livePrice&&!isNaN(livePrice)){
+            const old=S.opps[i].currentPrice||livePrice;
+            S.opps[i].currentPrice=livePrice;
+            // Recalculate upside based on live price
+            if(S.opps[i].targetPrice){
+              S.opps[i].upside=((S.opps[i].targetPrice-livePrice)/livePrice*100);
+            }
+          }
+        }catch(e){}
+        await new Promise(r=>setTimeout(r,300));
+      }
+    }
+
     await dbSaveOpps(S.opps);
     dbLog(`AI scan — ${S.opps.length} opportunities surfaced`);
     document.getElementById('report-area').innerHTML=`<div class="ai-report"><div class="rep-header"><div class="rep-icon">✦</div><div><div class="rep-title">Weekly Intelligence Report</div><div class="rep-date">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div></div></div><div class="rep-body">${p.reportSummary||''}</div></div>`;
