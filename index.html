@@ -288,7 +288,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
     <div class="form-row"><div class="form-group"><label class="form-label">Target ($)</label><input class="form-input" id="se-target" type="number" step="0.01"></div><div class="form-group"><label class="form-label">Stop Loss ($)</label><input class="form-input" id="se-stop" type="number" step="0.01"></div></div>
     <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="se-status"><option value="committed">Committed</option><option value="watching">Watching</option><option value="closed">Closed</option></select></div>
     <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" id="se-notes"></textarea></div>
-    <div class="sheet-footer"><button class="btn btn-outline" style="flex:1" onclick="closeSheet('sh-edit')">Cancel</button><button class="btn btn-primary" style="flex:2" onclick="doSaveEdit()">Save Changes</button></div>
+    <div class="sheet-footer" style="flex-direction:column;gap:10px"><div style="display:flex;gap:10px"><button class="btn btn-outline" style="flex:1" onclick="closeSheet('sh-edit')">Cancel</button><button class="btn btn-primary" style="flex:2" onclick="doSaveEdit()">Save Changes</button></div><button class="btn btn-full" style="background:#fff5f5;border:1px solid #fca5a5;color:#b91c1c" onclick="doDeletePos()">Delete Position</button></div>
   </div>
 </div>
 
@@ -537,6 +537,16 @@ async function doSaveEdit(){
   p.targetPrice=parseFloat(document.getElementById('se-target').value)||null;
   p.stopLoss=parseFloat(document.getElementById('se-stop').value)||null;
   await dbUpdPos(p);dbLog(`Updated — ${p.ticker}`);closeSheet('sh-edit');renderPort();
+}
+
+async function doDeletePos(){
+  const id=parseInt(document.getElementById('se-id').value);
+  const p=S.portfolio.find(x=>x.id===id);if(!p)return;
+  if(!confirm(`Delete ${p.ticker} position? This cannot be undone.`))return;
+  S.portfolio=S.portfolio.filter(x=>x.id!==id);
+  await db('portfolio','DELETE',null,`?id=eq.${id}`);
+  dbLog(`Deleted position — ${p.ticker}`);
+  closeSheet('sh-edit');renderPort();
 }
 
 // ADD MANUAL
