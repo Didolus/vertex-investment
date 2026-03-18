@@ -6,10 +6,12 @@
 <title>Vertex — AI Investment Intelligence</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0e0e0e;--paper:#f5f2ec;--cream:#ede9e1;--gold:#c9a84c;--gold-light:#e8d5a3;--gold-pale:#f7f0de;--emerald:#1a6b4a;--emerald-light:#d0ebe0;--rose:#b34a3a;--rose-light:#f5ddd9;--muted:#6b6560;--line:#d8d2c8;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace;--bnav:64px;--safe-b:env(safe-area-inset-bottom,0px)}
+:root{--ink:#0e0e0e;--paper:#f5f2ec;--cream:#ede9e1;--gold:#c9a84c;--gold-light:#e8d5a3;--gold-pale:#f7f0de;--emerald:#1a6b4a;--emerald-light:#d0ebe0;--rose:#b34a3a;--rose-light:#f5ddd9;--muted:#6b6560;--line:#d8d2c8;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace;--bnav:64px;--safe-b:env(safe-area-inset-bottom,0px);--sidebar-w:200px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden}
 body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.6}
+
+/* LOCK */
 #lock{position:fixed;inset:0;background:var(--ink);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px}
 #lock.show{display:flex}
 .lock-logo{font-family:var(--font-display);font-size:32px;color:var(--gold-light)}
@@ -19,6 +21,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 .lock-box input:focus{border-color:var(--gold)}
 .lock-box button{width:100%;padding:12px;background:var(--gold);border:none;border-radius:8px;color:var(--ink);font-size:14px;font-weight:500;font-family:var(--font-body);cursor:pointer}
 .lock-err{display:none;color:var(--rose);font-size:12px;text-align:center;margin-top:10px}
+
+/* APP */
 #app{display:none;flex-direction:column;height:100%}
 .topbar{background:var(--paper);border-bottom:1px solid var(--line);padding:0 16px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:10}
 .topbar-title{font-family:var(--font-display);font-size:17px;font-weight:500}
@@ -26,11 +30,15 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--bnav) + var(--safe-b) + 16px)}
 .page{display:none;padding:16px}
 .page.active{display:block}
+
+/* BOTTOM NAV */
 .bnav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--bnav) + var(--safe-b));padding-bottom:var(--safe-b);background:var(--ink);display:flex;z-index:20;border-top:1px solid rgba(255,255,255,.06)}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:rgba(255,255,255,.35);border:none;background:none;padding:8px 4px;transition:color .15s}
 .nb.active{color:var(--gold-light)}
 .nb svg{width:20px;height:20px}
 .nb-label{font-size:10px;font-weight:500;letter-spacing:.04em}
+
+/* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:8px;font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid transparent}
 .btn-gold{background:var(--gold);color:var(--ink);border-color:var(--gold)}
 .btn-gold:active{background:#b8972e;transform:scale(.97)}
@@ -38,28 +46,44 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 .btn-outline{background:transparent;color:var(--ink);border-color:var(--line)}
 .btn-outline:active{background:var(--cream)}
 .btn-ghost{background:transparent;color:var(--muted);border-color:transparent;padding:6px 8px}
+.btn-danger{background:#fff5f5;border:1px solid #fca5a5;color:#b91c1c}
 .btn-sm{padding:7px 12px;font-size:12px}
 .btn-full{width:100%}
 .btn:disabled{opacity:.4;pointer-events:none}
+
+/* CARDS */
 .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
 .card-dark{background:var(--ink);border-color:var(--ink)}
+
+/* STATS */
 .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .stat-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 12px}
 .stat-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .stat-value{font-family:var(--font-display);font-size:22px;font-weight:500;line-height:1.1}
 .stat-delta{font-size:11px;font-weight:500;margin-top:3px}
 .up{color:var(--emerald)}.down{color:var(--rose)}.neutral{color:var(--muted)}
+
+/* BADGES */
 .badge{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:20px;display:inline-block}
 .badge-urgent{background:var(--gold);color:var(--ink)}
 .badge-weekly{background:var(--cream);color:var(--muted);border:1px solid var(--line)}
+.badge-daily{background:#e8eef8;color:#2a5090}
 .badge-short{background:var(--rose-light);color:var(--rose)}
 .badge-medium{background:#e8eef8;color:#2a5090}
 .badge-long{background:var(--emerald-light);color:var(--emerald)}
 .badge-committed{background:var(--emerald-light);color:var(--emerald)}
 .badge-watching{background:#fff3cd;color:#856404}
 .badge-closed{background:var(--cream);color:var(--muted)}
+
+/* MODE TOGGLE */
+.mode-toggle{display:flex;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.mode-btn{flex:1;padding:9px 12px;font-size:13px;font-weight:500;text-align:center;cursor:pointer;background:#fff;color:var(--muted);border:none;font-family:var(--font-body);transition:all .15s}
+.mode-btn.active{background:var(--ink);color:var(--paper)}
+
+/* OPP CARDS */
 .opp-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
 .opp-card.urgent{border-color:var(--gold);background:var(--gold-pale)}
+.opp-card.daily-opp{border-color:#b5d4f4;background:#f0f7ff}
 .opp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
 .opp-ticker{font-family:var(--font-mono);font-size:20px;font-weight:500}
 .opp-name{font-size:12px;color:var(--muted);margin-top:2px}
@@ -69,7 +93,15 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 .opp-metric-label{font-size:10px;color:var(--muted)}
 .opp-metric-value{font-size:13px;font-weight:500;margin-top:2px}
 .opp-actions{display:flex;gap:8px}
+
+/* SCAN SECTIONS */
+.scan-section-title{font-family:var(--font-display);font-size:15px;font-weight:500;margin:16px 0 10px;display:flex;align-items:center;gap:8px}
+.scan-section-title .badge{vertical-align:middle}
+
+/* POSITION CARDS */
 .pos-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.pos-card.watching-card{border-color:#e8d87a;background:#fffdf0}
+.pos-card.closed-card{opacity:.6}
 .pos-row{display:flex;justify-content:space-between;align-items:center}
 .pos-ticker{font-family:var(--font-mono);font-size:16px;font-weight:500}
 .pos-name{font-size:12px;color:var(--muted);margin-top:1px}
@@ -78,17 +110,22 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 .pos-ml{color:var(--muted);margin-bottom:2px}
 .pos-mv{font-weight:500}
 .pnl-pos{color:var(--emerald)}.pnl-neg{color:var(--rose)}
+
+/* FORMS */
 .form-group{margin-bottom:14px}
 .form-label{display:block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .form-input,.form-textarea,.form-select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:8px;font-family:var(--font-body);font-size:14px;background:#fff;color:var(--ink);-webkit-appearance:none;transition:border-color .15s}
 .form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:var(--gold)}
 .form-textarea{resize:vertical;min-height:80px;line-height:1.6}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.sh-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.sh-title{font-family:var(--font-display);font-size:16px;font-weight:500}
+.form-hint{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* TAGS */
 .tag-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tag{display:inline-flex;align-items:center;padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;background:var(--cream);border:1px solid var(--line);color:var(--ink);cursor:pointer;transition:all .15s;user-select:none}
 .tag.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* SHEETS */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;display:none;align-items:flex-end}
 .overlay.open{display:flex}
 .sheet{background:var(--paper);border-radius:20px 20px 0 0;padding:20px 20px calc(20px + var(--safe-b));width:100%;max-height:92vh;overflow-y:auto}
@@ -96,6 +133,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 .sheet-title{font-family:var(--font-display);font-size:19px;font-weight:500;margin-bottom:4px}
 .sheet-sub{font-size:13px;color:var(--muted);margin-bottom:18px}
 .sheet-footer{display:flex;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+
+/* AI STATES */
 .scan-loading{display:none;align-items:center;gap:12px;padding:14px 16px;background:var(--gold-pale);border:1px solid var(--gold-light);border-radius:10px;font-size:13px;color:var(--muted);margin-bottom:14px}
 .scan-loading.show{display:flex}
 .spinner{width:16px;height:16px;border:2px solid var(--gold-light);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
@@ -110,41 +149,75 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 .urgent-banner.show{display:flex}
 .dot-pulse{width:8px;height:8px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:pulse 1.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* EMPTY */
 .empty{text-align:center;padding:40px 20px}
 .empty-icon{font-size:28px;margin-bottom:10px;opacity:.35}
 .empty-title{font-family:var(--font-display);font-size:17px;margin-bottom:6px}
 .empty-text{font-size:13px;color:var(--muted);line-height:1.6;max-width:280px;margin:0 auto 16px}
+
+/* BARS */
 .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .bar-label{width:80px;font-size:12px;color:var(--muted);text-align:right;flex-shrink:0}
 .bar-track{flex:1;height:7px;background:var(--cream);border-radius:4px;overflow:hidden}
 .bar-fill{height:100%;border-radius:4px;background:var(--gold);transition:width .6s ease}
 .bar-fill.green{background:var(--emerald)}.bar-fill.red{background:var(--rose)}
 .bar-value{width:44px;font-size:11px;font-weight:500;font-family:var(--font-mono)}
+
+/* TIMELINE */
 .tl{position:relative;padding-left:18px}
 .tl::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--line)}
 .tl-item{position:relative;padding-bottom:16px}
 .tl-item::before{content:'';position:absolute;left:-16px;top:5px;width:7px;height:7px;border-radius:50%;background:var(--gold);border:2px solid var(--paper)}
 .tl-date{font-size:11px;color:var(--muted);margin-bottom:2px}
 .tl-text{font-size:13px}
+
+/* FILTER */
 .filter-row{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 .filter-row::-webkit-scrollbar{display:none}
 .fp{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;background:var(--cream);border:1px solid var(--line);color:var(--muted);transition:all .15s;flex-shrink:0}
 .fp.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* PRICE CHIP */
 .price-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);padding:2px 8px;background:var(--cream);border-radius:10px}
+
+/* RANGE SLIDER */
+.range-group{margin-bottom:14px}
+.range-row{display:flex;align-items:center;gap:12px}
+.range-row input[type=range]{flex:1;-webkit-appearance:none;height:4px;background:var(--line);border-radius:2px;outline:none}
+.range-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--ink);cursor:pointer}
+.range-val{font-family:var(--font-mono);font-size:12px;font-weight:500;min-width:36px;text-align:right}
+
+/* INTERESTS SECTION */
+.int-section{margin-bottom:16px}
+.int-section-title{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+
+/* DESKTOP SIDEBAR — collapsable */
+.sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);background:var(--ink);display:flex;flex-direction:column;padding:0;height:100vh;position:sticky;top:0;flex-shrink:0;transition:width .2s,min-width .2s;overflow:hidden}
+.sidebar.collapsed{width:52px;min-width:52px}
+.sl{padding:18px 20px 18px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.sl-name{font-family:var(--font-display);font-size:19px;color:var(--gold-light);white-space:nowrap;overflow:hidden}
+.sl-tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:2px;white-space:nowrap}
+.sl-toggle{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);padding:4px;flex-shrink:0;transition:color .15s}
+.sl-toggle:hover{color:rgba(255,255,255,.8)}
+.snb{display:flex;align-items:center;gap:10px;padding:10px 16px;color:rgba(255,255,255,.45);font-size:13px;cursor:pointer;border-left:2px solid transparent;transition:all .15s;border-top:none;border-right:none;border-bottom:none;background:none;width:100%;white-space:nowrap;overflow:hidden}
+.snb.active{color:var(--gold-light);border-left-color:var(--gold);background:rgba(201,168,76,.07)}
+.snb svg{width:16px;height:16px;flex-shrink:0}
+.snb-label{overflow:hidden;transition:opacity .15s}
+.sidebar.collapsed .snb-label{opacity:0;width:0}
+.sidebar.collapsed .sl-name,.sidebar.collapsed .sl-tag{opacity:0}
+.sidebar-nav{padding:12px 0;flex:1}
+.sidebar-bottom{padding:8px 0 16px;border-top:1px solid rgba(255,255,255,.06)}
+
+/* MAIN AREA */
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+
 @media(min-width:768px){
   html,body{overflow:auto}
   #app{flex-direction:row;height:100vh}
   .bnav{display:none}
-  .sidebar{width:200px;min-width:200px;background:var(--ink);display:flex;flex-direction:column;padding:24px 0;height:100vh;position:sticky;top:0;flex-shrink:0}
-  .sl{padding:0 20px 24px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:16px}
-  .sl-name{font-family:var(--font-display);font-size:20px;color:var(--gold-light)}
-  .sl-tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:2px}
-  .snb{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.45);font-size:13px;cursor:pointer;border-left:2px solid transparent;transition:all .15s;border-top:none;border-right:none;border-bottom:none;background:none;width:100%}
-  .snb.active{color:var(--gold-light);border-left-color:var(--gold);background:rgba(201,168,76,.07)}
-  .snb svg{width:16px;height:16px;flex-shrink:0}
-  .main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
   .scroll{padding-bottom:24px}
-  .page{max-width:800px;padding:20px 28px}
+  .page{max-width:820px;padding:20px 28px}
   .topbar{padding:0 28px}
   .stats-row{grid-template-columns:repeat(4,1fr)}
 }
@@ -168,13 +241,23 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 </div>
 
 <div id="app">
-  <div class="sidebar">
-    <div class="sl"><div class="sl-name">Vertex</div><div class="sl-tag">AI Intelligence</div></div>
-    <button class="snb active" onclick="nav('opp')" id="snav-opp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>Opportunities</button>
-    <button class="snb" onclick="nav('port')" id="snav-port"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Portfolio</button>
-    <button class="snb" onclick="nav('an')" id="snav-an"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><rect x="7" y="13" width="3" height="6"/><rect x="12" y="9" width="3" height="10"/><rect x="17" y="5" width="3" height="14"/></svg>Analytics</button>
-    <button class="snb" onclick="nav('int')" id="snav-int"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>My Interests</button>
-    <button class="snb" onclick="nav('set')" id="snav-set" style="margin-top:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</button>
+  <!-- Collapsable Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sl">
+      <div><div class="sl-name">Vertex</div><div class="sl-tag">AI Intelligence</div></div>
+      <button class="sl-toggle" onclick="toggleSidebar()" title="Collapse">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+    </div>
+    <div class="sidebar-nav">
+      <button class="snb active" onclick="nav('opp')" id="snav-opp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg><span class="snb-label">Opportunities</span></button>
+      <button class="snb" onclick="nav('port')" id="snav-port"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg><span class="snb-label">Portfolio</span></button>
+      <button class="snb" onclick="nav('an')" id="snav-an"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><rect x="7" y="13" width="3" height="6"/><rect x="12" y="9" width="3" height="10"/><rect x="17" y="5" width="3" height="14"/></svg><span class="snb-label">Analytics</span></button>
+      <button class="snb" onclick="nav('int')" id="snav-int"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="snb-label">My Interests</span></button>
+    </div>
+    <div class="sidebar-bottom">
+      <button class="snb" onclick="nav('set')" id="snav-set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="snb-label">Settings</span></button>
+    </div>
   </div>
 
   <div class="main-area">
@@ -182,39 +265,60 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
       <div class="topbar-title" id="page-title">Opportunities</div>
       <div class="topbar-right">
         <span class="price-chip" id="price-chip" style="display:none">✓ Prices today</span>
-        <button class="btn btn-gold btn-sm" id="scan-btn" onclick="runScan()">⟳ Scan</button>
+        <button class="btn btn-gold btn-sm" id="scan-btn" onclick="runScan('weekly')">⟳ Weekly Scan</button>
+        <button class="btn btn-outline btn-sm" id="daily-btn" onclick="runScan('daily')" style="display:none">⚡ Daily</button>
       </div>
     </div>
 
     <div class="scroll">
+      <!-- OPPORTUNITIES -->
       <div class="page active" id="page-opp">
         <div class="urgent-banner" id="urgent-banner"><div class="dot-pulse"></div><span><strong>Urgent alert:</strong> Time-sensitive opportunity detected.</span></div>
-        <div class="scan-loading" id="scan-loading"><div class="spinner"></div><span>AI scanning markets…</span></div>
+        <div class="scan-loading" id="scan-loading"><div class="spinner"></div><span id="scan-msg">AI scanning markets…</span></div>
         <div id="report-area"></div>
         <div class="filter-row">
           <div class="fp active" onclick="setFilter('all',this)">All</div>
           <div class="fp" onclick="setFilter('urgent',this)">⚡ Urgent</div>
           <div class="fp" onclick="setFilter('weekly',this)">Weekly</div>
+          <div class="fp" onclick="setFilter('daily',this)">Daily</div>
         </div>
-        <div id="opps-list"></div>
+        <div id="daily-section" style="display:none">
+          <div class="scan-section-title"><span class="badge badge-daily">⚡ Daily Scan</span> Short-term opportunities</div>
+          <div id="daily-list"></div>
+        </div>
+        <div id="weekly-section">
+          <div class="scan-section-title" id="weekly-label" style="display:none"><span class="badge badge-weekly">Weekly</span> Medium & long-term</div>
+          <div id="opps-list"></div>
+        </div>
         <div id="opps-empty" class="empty" style="display:none">
           <div class="empty-icon">◇</div>
           <div class="empty-title">No opportunities yet</div>
-          <div class="empty-text">Run an AI scan to surface investment opportunities based on your interests.</div>
-          <button class="btn btn-gold" onclick="runScan()">⟳ Run AI Scan</button>
+          <div class="empty-text">Run a weekly scan for medium-term plays, or a daily scan for short-term opportunities.</div>
+          <div style="display:flex;gap:10px;justify-content:center">
+            <button class="btn btn-gold" onclick="runScan('weekly')">⟳ Weekly Scan</button>
+            <button class="btn btn-outline" onclick="runScan('daily')">⚡ Daily Scan</button>
+          </div>
         </div>
       </div>
 
+      <!-- PORTFOLIO -->
       <div class="page" id="page-port">
         <div class="stats-row" id="port-stats"></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
           <div style="font-family:var(--font-display);font-size:16px;font-weight:500">Positions</div>
           <button class="btn btn-primary btn-sm" onclick="openSheet('sh-add')">+ Add</button>
         </div>
+        <div class="filter-row">
+          <div class="fp active" onclick="setPortFilter('all',this)">All</div>
+          <div class="fp" onclick="setPortFilter('committed',this)">Committed</div>
+          <div class="fp" onclick="setPortFilter('watching',this)">Watching</div>
+          <div class="fp" onclick="setPortFilter('closed',this)">Closed</div>
+        </div>
         <div id="port-list"></div>
         <div id="port-empty" class="empty" style="display:none"><div class="empty-icon">◈</div><div class="empty-title">No positions yet</div><div class="empty-text">Commit to opportunities or add a position manually.</div></div>
       </div>
 
+      <!-- ANALYTICS -->
       <div class="page" id="page-an">
         <div class="stats-row" id="an-stats"></div>
         <div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Returns by sector</div><div id="an-sector"></div></div>
@@ -222,34 +326,116 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
         <div class="card"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Activity log</div><div class="tl" id="an-log"></div><div id="an-log-empty" style="display:none;font-size:13px;color:var(--muted)">No activity yet.</div></div>
       </div>
 
+      <!-- INTERESTS -->
       <div class="page" id="page-int">
-        <div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Investment sectors</div><p style="font-size:13px;color:var(--muted);margin-bottom:14px">Select sectors the AI will prospect.</p><div class="tag-grid" id="i-sectors"></div></div>
-        <div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Geographies</div><p style="font-size:13px;color:var(--muted);margin-bottom:14px">Which markets to include.</p><div class="tag-grid" id="i-geos"></div></div>
-        <div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:10px">Risk appetite</div><div class="tag-grid" id="i-risk"></div></div>
-        <div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:10px">Investment horizon</div><div class="tag-grid" id="i-horizon"></div></div>
-        <div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Custom focus note</div><p style="font-size:13px;color:var(--muted);margin:6px 0 12px">Tell the AI anything specific to watch for.</p><textarea class="form-textarea" id="i-note" placeholder="e.g. Focus on undervalued small caps…"></textarea></div>
-        <div class="card card-dark" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:15px;color:var(--gold-light);margin-bottom:8px">Your current profile</div><div id="i-summary" style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.7"></div><button class="btn btn-gold btn-full" style="margin-top:16px" onclick="saveInterests()">Save &amp; update AI →</button></div>
+        <!-- Sectors -->
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Investment sectors</div>
+          <div class="tag-grid" id="i-sectors"></div>
+        </div>
+        <!-- Geographies -->
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Geographies</div>
+          <div class="tag-grid" id="i-geos"></div>
+        </div>
+        <!-- Risk & Horizon -->
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Risk & Horizon</div>
+          <div class="int-section">
+            <div class="int-section-title">Risk appetite</div>
+            <div class="tag-grid" id="i-risk"></div>
+          </div>
+          <div class="int-section" style="margin-top:14px">
+            <div class="int-section-title">Investment horizon</div>
+            <div class="tag-grid" id="i-horizon"></div>
+          </div>
+        </div>
+        <!-- Advanced config -->
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Advanced configuration</div>
+          <div class="int-section">
+            <div class="int-section-title">Market cap preference</div>
+            <div class="tag-grid" id="i-mktcap"></div>
+          </div>
+          <div class="int-section" style="margin-top:14px">
+            <div class="int-section-title">Investment style</div>
+            <div class="tag-grid" id="i-style"></div>
+          </div>
+          <div class="int-section" style="margin-top:14px">
+            <div class="int-section-title">Asset types</div>
+            <div class="tag-grid" id="i-assets"></div>
+          </div>
+          <div class="int-section" style="margin-top:14px">
+            <div class="int-section-title">Avoid sectors / themes</div>
+            <div class="tag-grid" id="i-avoid"></div>
+          </div>
+          <div class="int-section" style="margin-top:14px">
+            <div class="int-section-title">Minimum upside target</div>
+            <div class="range-group">
+              <div class="range-row">
+                <input type="range" id="i-min-upside" min="5" max="50" step="1" value="10" oninput="updateRangeLabel('i-min-upside','i-upside-val','%')">
+                <div class="range-val" id="i-upside-val">10%</div>
+              </div>
+            </div>
+          </div>
+          <div class="int-section">
+            <div class="int-section-title">Max portfolio concentration per position</div>
+            <div class="range-group">
+              <div class="range-row">
+                <input type="range" id="i-max-conc" min="5" max="50" step="5" value="20" oninput="updateRangeLabel('i-max-conc','i-conc-val','%')">
+                <div class="range-val" id="i-conc-val">20%</div>
+              </div>
+            </div>
+          </div>
+          <div class="int-section">
+            <div class="int-section-title">ESG preference</div>
+            <div class="tag-grid" id="i-esg"></div>
+          </div>
+          <div class="int-section" style="margin-top:14px">
+            <div class="int-section-title">Dividend preference</div>
+            <div class="tag-grid" id="i-div"></div>
+          </div>
+        </div>
+        <!-- Watchlist tickers -->
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Always watch these tickers</div>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">The AI will always include analysis on these specific stocks.</p>
+          <input class="form-input" id="i-watchlist" placeholder="AAPL, MSFT, NVDA, TSLA…">
+          <div class="form-hint">Comma-separated ticker symbols</div>
+        </div>
+        <!-- Custom note -->
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Custom focus note</div>
+          <p style="font-size:13px;color:var(--muted);margin:6px 0 12px">Tell the AI anything specific.</p>
+          <textarea class="form-textarea" id="i-note" placeholder="e.g. Avoid companies with P/E above 40. Focus on positive free cash flow…"></textarea>
+        </div>
+        <!-- Profile summary -->
+        <div class="card card-dark" style="margin-bottom:12px">
+          <div style="font-family:var(--font-display);font-size:15px;color:var(--gold-light);margin-bottom:8px">Your current profile</div>
+          <div id="i-summary" style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.8"></div>
+          <button class="btn btn-gold btn-full" style="margin-top:16px" onclick="saveInterests()">Save &amp; update AI →</button>
+        </div>
       </div>
 
+      <!-- SETTINGS -->
       <div class="page" id="page-set">
         <div class="card" style="margin-bottom:12px">
           <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Anthropic API Key</div>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Stored in your browser. Get it at <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold)">console.anthropic.com</a>.</p>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Get it at <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold)">console.anthropic.com</a>.</p>
           <div class="form-group"><label class="form-label">API Key</label><input class="form-input" id="s-apikey" type="password" placeholder="sk-ant-..."></div>
           <button class="btn btn-primary btn-full" onclick="saveApiKey()">Save Key</button>
           <div id="s-key-ok" style="font-size:12px;color:var(--emerald);margin-top:8px;display:none">✓ Saved</div>
         </div>
         <div class="card" style="margin-bottom:12px">
           <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Alpha Vantage Key</div>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">For daily price updates. Free at <a href="https://alphavantage.co/support/#api-key" target="_blank" style="color:var(--gold)">alphavantage.co</a>.</p>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Free at <a href="https://alphavantage.co/support/#api-key" target="_blank" style="color:var(--gold)">alphavantage.co</a>. Used for live prices.</p>
           <div class="form-group"><label class="form-label">Alpha Vantage Key</label><input class="form-input" id="s-avkey" type="text" placeholder="Your key here"></div>
           <button class="btn btn-primary btn-full" onclick="saveAVKey()">Save Key</button>
           <div id="s-av-ok" style="font-size:12px;color:var(--emerald);margin-top:8px;display:none">✓ Saved</div>
         </div>
         <div class="card">
           <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">App password</div>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Change the password to access this app.</p>
-          <div class="form-group"><label class="form-label">New Password</label><input class="form-input" id="s-pwd" type="password" placeholder="New password"></div>
+          <div class="form-group" style="margin-top:12px"><label class="form-label">New Password</label><input class="form-input" id="s-pwd" type="password" placeholder="New password"></div>
           <button class="btn btn-primary btn-full" onclick="savePwd()">Update Password</button>
           <div id="s-pwd-ok" style="font-size:12px;color:var(--emerald);margin-top:8px;display:none">✓ Updated</div>
         </div>
@@ -257,6 +443,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
     </div>
   </div>
 
+  <!-- Bottom Nav -->
   <nav class="bnav">
     <button class="nb active" onclick="nav('opp')" id="bnav-opp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg><span class="nb-label">Scan</span></button>
     <button class="nb" onclick="nav('port')" id="bnav-port"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg><span class="nb-label">Portfolio</span></button>
@@ -266,16 +453,25 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
   </nav>
 </div>
 
-<!-- Sheets -->
+<!-- SHEETS -->
 <div class="overlay" id="sh-commit" onclick="bgClose(event,'sh-commit')">
   <div class="sheet"><div class="sheet-handle"></div>
     <div class="sheet-title" id="sc-title">Commit to Opportunity</div>
-    <div class="sheet-sub">Review and adjust before committing.</div>
-    <div class="form-row"><div class="form-group"><label class="form-label">Ticker</label><input class="form-input" id="sc-ticker" readonly style="background:var(--cream)"></div><div class="form-group"><label class="form-label">Quantity</label><input class="form-input" id="sc-qty" type="number" placeholder="0"></div></div>
-    <div class="form-row"><div class="form-group"><label class="form-label">Entry Price ($)</label><input class="form-input" id="sc-price" type="number" step="0.01"></div><div class="form-group"><label class="form-label">Current Price ($)</label><input class="form-input" id="sc-current" type="number" step="0.01"></div></div>
-    <div class="form-row"><div class="form-group"><label class="form-label">Target ($)</label><input class="form-input" id="sc-target" type="number" step="0.01"></div><div class="form-group"><label class="form-label">Stop Loss ($)</label><input class="form-input" id="sc-stop" type="number" step="0.01"></div></div>
+    <div class="sheet-sub">Choose mode, then review details before saving.</div>
+    <div class="mode-toggle">
+      <div class="mode-btn active" id="mode-committed" onclick="selectMode('committed')">✓ Committed</div>
+      <div class="mode-btn" id="mode-watching" onclick="selectMode('watching')">👁 Watching</div>
+    </div>
+    <div id="committed-fields">
+      <div class="form-row"><div class="form-group"><label class="form-label">Ticker</label><input class="form-input" id="sc-ticker" readonly style="background:var(--cream)"></div><div class="form-group"><label class="form-label">Quantity</label><input class="form-input" id="sc-qty" type="number" placeholder="0"></div></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Entry Price ($)</label><input class="form-input" id="sc-price" type="number" step="0.01"></div><div class="form-group"><label class="form-label">Current Price ($)</label><input class="form-input" id="sc-current" type="number" step="0.01"></div></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Target ($)</label><input class="form-input" id="sc-target" type="number" step="0.01"></div><div class="form-group"><label class="form-label">Stop Loss ($)</label><input class="form-input" id="sc-stop" type="number" step="0.01"></div></div>
+    </div>
+    <div id="watching-fields" style="display:none">
+      <div class="form-row"><div class="form-group"><label class="form-label">Ticker</label><input class="form-input" id="sw-ticker" readonly style="background:var(--cream)"></div><div class="form-group"><label class="form-label">Alert Price ($)</label><input class="form-input" id="sw-alert" type="number" step="0.01" placeholder="Buy if drops to…"></div></div>
+    </div>
     <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" id="sc-notes"></textarea></div>
-    <div class="sheet-footer"><button class="btn btn-outline" style="flex:1" onclick="closeSheet('sh-commit')">Cancel</button><button class="btn btn-gold" style="flex:2" onclick="doCommit()">✓ Commit Position</button></div>
+    <div class="sheet-footer"><button class="btn btn-outline" style="flex:1" onclick="closeSheet('sh-commit')">Cancel</button><button class="btn btn-gold" style="flex:2" id="commit-btn" onclick="doCommit()">✓ Commit Position</button></div>
   </div>
 </div>
 
@@ -286,19 +482,37 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
     <div class="form-row"><div class="form-group"><label class="form-label">Ticker</label><input class="form-input" id="se-ticker" readonly style="background:var(--cream)"></div><div class="form-group"><label class="form-label">Quantity</label><input class="form-input" id="se-qty" type="number"></div></div>
     <div class="form-row"><div class="form-group"><label class="form-label">Entry Price ($)</label><input class="form-input" id="se-price" type="number" step="0.01"></div><div class="form-group"><label class="form-label">Current Price ($)</label><input class="form-input" id="se-current" type="number" step="0.01"></div></div>
     <div class="form-row"><div class="form-group"><label class="form-label">Target ($)</label><input class="form-input" id="se-target" type="number" step="0.01"></div><div class="form-group"><label class="form-label">Stop Loss ($)</label><input class="form-input" id="se-stop" type="number" step="0.01"></div></div>
-    <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="se-status"><option value="committed">Committed</option><option value="watching">Watching</option><option value="closed">Closed</option></select></div>
     <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" id="se-notes"></textarea></div>
-    <div class="sheet-footer" style="flex-direction:column;gap:10px"><div style="display:flex;gap:10px"><button class="btn btn-outline" style="flex:1" onclick="closeSheet('sh-edit')">Cancel</button><button class="btn btn-primary" style="flex:2" onclick="doSaveEdit()">Save Changes</button></div><button class="btn btn-full" style="background:#fff5f5;border:1px solid #fca5a5;color:#b91c1c" onclick="doDeletePos()">Delete Position</button></div>
+    <div class="sheet-footer" style="flex-direction:column;gap:10px">
+      <div style="display:flex;gap:10px"><button class="btn btn-outline" style="flex:1" onclick="closeSheet('sh-edit')">Cancel</button><button class="btn btn-primary" style="flex:2" onclick="doSaveEdit()">Save Changes</button></div>
+      <button class="btn btn-full btn-danger" onclick="openClosePosition()">Close Position…</button>
+      <button class="btn btn-full btn-danger" onclick="doDeletePos()">Delete Position</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="sh-close-pos" onclick="bgClose(event,'sh-close-pos')">
+  <div class="sheet"><div class="sheet-handle"></div>
+    <div class="sheet-title">Close Position</div>
+    <div class="sheet-sub">Enter the price at which you closed this position.</div>
+    <div class="form-group"><label class="form-label">Closing Price ($)</label><input class="form-input" id="close-price" type="number" step="0.01" placeholder="e.g. 185.50"></div>
+    <div class="form-group"><label class="form-label">Notes (optional)</label><textarea class="form-textarea" id="close-notes" placeholder="Reason for closing…" style="min-height:60px"></textarea></div>
+    <div id="close-summary" style="background:var(--cream);border-radius:8px;padding:12px;font-size:13px;margin-bottom:14px;display:none"></div>
+    <div class="sheet-footer"><button class="btn btn-outline" style="flex:1" onclick="closeSheet('sh-close-pos')">Cancel</button><button class="btn btn-danger" style="flex:2" onclick="doClosePos()">Confirm Close</button></div>
   </div>
 </div>
 
 <div class="overlay" id="sh-add" onclick="bgClose(event,'sh-add')">
   <div class="sheet"><div class="sheet-handle"></div>
-    <div class="sheet-title">Add Position</div><div class="sheet-sub">Track an investment you've already made.</div>
+    <div class="sheet-title">Add Position</div><div class="sheet-sub">Track an investment manually.</div>
+    <div class="mode-toggle">
+      <div class="mode-btn active" id="add-mode-committed" onclick="selectAddMode('committed')">✓ Committed</div>
+      <div class="mode-btn" id="add-mode-watching" onclick="selectAddMode('watching')">👁 Watching</div>
+    </div>
     <div class="form-row"><div class="form-group"><label class="form-label">Ticker</label><input class="form-input" id="sa-ticker" placeholder="AAPL"></div><div class="form-group"><label class="form-label">Company Name</label><input class="form-input" id="sa-name" placeholder="Apple Inc."></div></div>
-    <div class="form-row"><div class="form-group"><label class="form-label">Quantity</label><input class="form-input" id="sa-qty" type="number" placeholder="10"></div><div class="form-group"><label class="form-label">Entry Price ($)</label><input class="form-input" id="sa-price" type="number" step="0.01" placeholder="150.00"></div></div>
+    <div class="form-row" id="sa-qty-row"><div class="form-group"><label class="form-label">Quantity</label><input class="form-input" id="sa-qty" type="number" placeholder="10"></div><div class="form-group"><label class="form-label">Entry Price ($)</label><input class="form-input" id="sa-price" type="number" step="0.01" placeholder="150.00"></div></div>
     <div class="form-row"><div class="form-group"><label class="form-label">Current Price ($)</label><input class="form-input" id="sa-current" type="number" step="0.01" placeholder="175.00"></div><div class="form-group"><label class="form-label">Sector</label><select class="form-select" id="sa-sector"><option>Technology</option><option>Healthcare</option><option>Clean Energy</option><option>Financials</option><option>Consumer</option><option>Real Estate</option><option>Materials</option><option>Crypto</option><option>Other</option></select></div></div>
-    <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" id="sa-notes" placeholder="Why you made this investment…"></textarea></div>
+    <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" id="sa-notes" placeholder="Why you're watching or investing…"></textarea></div>
     <div class="sheet-footer"><button class="btn btn-outline" style="flex:1" onclick="closeSheet('sh-add')">Cancel</button><button class="btn btn-primary" style="flex:2" onclick="doAddManual()">Add Position</button></div>
   </div>
 </div>
@@ -307,7 +521,18 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 const SB_URL='https://ymerzplbiosigynsokwh.supabase.co';
 const SB_KEY='sb_publishable_1RnCr66p4H1ZU-nqiDtBkg_VqybQvkp';
 const DEF_PWD='vertex2024';
-let S={opps:[],portfolio:[],log:[],interests:{sectors:['Technology','Clean Energy','Healthcare'],geos:['US','EU'],risk:'Moderate',horizon:'Medium-term',note:''},filter:'all',pending:null};
+
+let S={
+  opps:[],dailyOpps:[],portfolio:[],log:[],
+  interests:{
+    sectors:['Technology','Clean Energy','Healthcare'],geos:['US','EU'],
+    risk:'Moderate',horizon:'Medium-term',
+    mktcap:[],style:[],assets:['Stocks'],avoid:[],
+    minUpside:10,maxConc:20,esg:'No preference',dividend:'No preference',
+    watchlist:'',note:''
+  },
+  filter:'all',portFilter:'all',pending:null,commitMode:'committed',addMode:'committed'
+};
 
 // LOCK
 function getPwd(){return localStorage.getItem('v-pwd')||DEF_PWD;}
@@ -315,6 +540,13 @@ function checkLock(){if(sessionStorage.getItem('v-ok')==='1'){document.getElemen
 function unlock(){const v=document.getElementById('lock-input').value;if(v===getPwd()){sessionStorage.setItem('v-ok','1');document.getElementById('lock').classList.remove('show');document.getElementById('app').style.display='flex';init();}else{document.getElementById('lock-err').style.display='block';document.getElementById('lock-input').value='';document.getElementById('lock-input').focus();}}
 document.getElementById('lock-input').addEventListener('keydown',e=>{if(e.key==='Enter')unlock();});
 function savePwd(){const v=document.getElementById('s-pwd').value.trim();if(!v)return;localStorage.setItem('v-pwd',v);showOk('s-pwd-ok');}
+
+// SIDEBAR COLLAPSE
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  sb.classList.toggle('collapsed');
+  localStorage.setItem('v-sb-collapsed',sb.classList.contains('collapsed')?'1':'0');
+}
 
 // DB
 async function db(table,method='GET',body=null,query=''){
@@ -330,17 +562,24 @@ async function loadDB(){
       db('activity_log','GET',null,'?order=ts.desc&limit=50'),
       db('interests','GET',null,'?id=eq.1'),
     ]);
-    S.portfolio=(port||[]).map(p=>({id:p.id,ticker:p.ticker,name:p.name,sector:p.sector,qty:p.qty,entryPrice:p.entry_price,currentPrice:p.current_price,targetPrice:p.target_price,stopLoss:p.stop_loss,notes:p.notes,status:p.status,horizon:p.horizon,committedAt:p.committed_at}));
-    S.opps=(opps||[]).map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent,urgentReason:o.urgent_reason,targetPrice:o.target_price,stopLoss:o.stop_loss,currentPrice:o.current_price,upside:o.upside,riskLevel:o.risk_level,scannedAt:o.scanned_at}));
+    S.portfolio=(port||[]).map(p=>({id:p.id,ticker:p.ticker,name:p.name,sector:p.sector,qty:p.qty,entryPrice:p.entry_price,currentPrice:p.current_price,targetPrice:p.target_price,stopLoss:p.stop_loss,notes:p.notes,status:p.status,horizon:p.horizon,closedPrice:p.closed_price,committedAt:p.committed_at}));
+    S.opps=(opps||[]).filter(o=>!o.is_daily).map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent,urgentReason:o.urgent_reason,targetPrice:o.target_price,stopLoss:o.stop_loss,currentPrice:o.current_price,upside:o.upside,riskLevel:o.risk_level,scannedAt:o.scanned_at}));
+    S.dailyOpps=(opps||[]).filter(o=>o.is_daily).map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent,urgentReason:o.urgent_reason,targetPrice:o.target_price,stopLoss:o.stop_loss,currentPrice:o.current_price,upside:o.upside,riskLevel:o.risk_level,scannedAt:o.scanned_at,isDaily:true}));
     S.log=(log||[]).map(l=>({ts:l.ts,text:l.text}));
-    if(ints&&ints[0]){const i=ints[0];S.interests={sectors:i.sectors||[],geos:i.geos||[],risk:i.risk||'Moderate',horizon:i.horizon||'Medium-term',note:i.note||''};}
+    if(ints&&ints[0]){const i=ints[0];S.interests={...S.interests,...{sectors:i.sectors||[],geos:i.geos||[],risk:i.risk||'Moderate',horizon:i.horizon||'Medium-term',mktcap:i.mktcap||[],style:i.style||[],assets:i.assets||['Stocks'],avoid:i.avoid||[],minUpside:i.min_upside||10,maxConc:i.max_conc||20,esg:i.esg||'No preference',dividend:i.dividend||'No preference',watchlist:i.watchlist||'',note:i.note||''}};}
   }catch(e){console.error('DB error',e);}
 }
-async function dbSavePos(p){await db('portfolio','POST',{id:p.id,ticker:p.ticker,name:p.name,sector:p.sector,qty:p.qty,entry_price:p.entryPrice,current_price:p.currentPrice,target_price:p.targetPrice,stop_loss:p.stopLoss,notes:p.notes,status:p.status,horizon:p.horizon,committed_at:p.committedAt});}
-async function dbUpdPos(p){await db('portfolio','PATCH',{qty:p.qty,entry_price:p.entryPrice,current_price:p.currentPrice,target_price:p.targetPrice,stop_loss:p.stopLoss,notes:p.notes,status:p.status},`?id=eq.${p.id}`);}
+async function dbSavePos(p){await db('portfolio','POST',{id:p.id,ticker:p.ticker,name:p.name,sector:p.sector,qty:p.qty||0,entry_price:p.entryPrice||0,current_price:p.currentPrice||0,target_price:p.targetPrice,stop_loss:p.stopLoss,notes:p.notes,status:p.status,horizon:p.horizon,committed_at:p.committedAt});}
+async function dbUpdPos(p){await db('portfolio','PATCH',{qty:p.qty,entry_price:p.entryPrice,current_price:p.currentPrice,target_price:p.targetPrice,stop_loss:p.stopLoss,notes:p.notes,status:p.status,closed_price:p.closedPrice||null},`?id=eq.${p.id}`);}
 async function dbDelOpp(id){await db('opportunities','DELETE',null,`?id=eq.${id}`);}
-async function dbSaveOpps(opps){await db('opportunities','DELETE',null,'?id=neq.0');if(opps.length)await db('opportunities','POST',opps.map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent,urgent_reason:o.urgentReason,target_price:o.targetPrice,stop_loss:o.stopLoss,current_price:o.currentPrice,upside:o.upside,risk_level:o.riskLevel,scanned_at:o.scannedAt})));}
-async function dbSaveInts(){const i=S.interests;await db('interests','PATCH',{sectors:i.sectors,geos:i.geos,risk:i.risk,horizon:i.horizon,note:i.note},'?id=eq.1');}
+async function dbSaveOpps(opps,isDaily=false){
+  await db('opportunities','DELETE',null,`?is_daily=eq.${isDaily}`);
+  if(opps.length)await db('opportunities','POST',opps.map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent||false,urgent_reason:o.urgentReason||'',target_price:o.targetPrice,stop_loss:o.stopLoss,current_price:o.currentPrice,upside:o.upside,risk_level:o.riskLevel,scanned_at:o.scannedAt,is_daily:isDaily})));
+}
+async function dbSaveInts(){
+  const i=S.interests;
+  await db('interests','PATCH',{sectors:i.sectors,geos:i.geos,risk:i.risk,horizon:i.horizon,mktcap:i.mktcap,style:i.style,assets:i.assets,avoid:i.avoid,min_upside:i.minUpside,max_conc:i.maxConc,esg:i.esg,dividend:i.dividend,watchlist:i.watchlist,note:i.note},'?id=eq.1');
+}
 async function dbLog(text){await db('activity_log','POST',{text,ts:new Date().toISOString()});S.log.unshift({ts:new Date().toISOString(),text});}
 
 // NAV
@@ -354,7 +593,9 @@ function nav(p){
     if(s)s.classList.toggle('active',x===p);
   });
   document.getElementById('page-title').textContent=TITLES[p];
-  document.getElementById('scan-btn').style.display=p==='opp'?'':'none';
+  const isOpp=p==='opp';
+  document.getElementById('scan-btn').style.display=isOpp?'':'none';
+  document.getElementById('daily-btn').style.display=isOpp?'':'none';
   document.querySelector('.scroll').scrollTop=0;
   if(p==='port')renderPort();
   if(p==='an')renderAn();
@@ -362,9 +603,35 @@ function nav(p){
   if(p==='set')renderSet();
 }
 
+// SIDEBAR
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  sb.classList.toggle('collapsed');
+  localStorage.setItem('v-sb-collapsed',sb.classList.contains('collapsed')?'1':'0');
+}
+
 // PRICES
 function getAVKey(){return localStorage.getItem('v-av-key')||'';}
-async function updatePrices(){
+async function fetchLivePrices(opps){
+  const k=getAVKey();if(!k)return opps;
+  for(let i=0;i<opps.length;i++){
+    try{
+      const r=await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${opps[i].ticker}&apikey=${k}`);
+      const d=await r.json();
+      const lp=parseFloat(d['Global Quote']?.['05. price']);
+      if(lp&&!isNaN(lp)){
+        opps[i].currentPrice=lp;
+        const absUpside=Math.abs(opps[i].upside||10);
+        opps[i].targetPrice=parseFloat((lp*(1+absUpside/100)).toFixed(2));
+        opps[i].stopLoss=parseFloat((lp*0.92).toFixed(2));
+        opps[i].upside=absUpside;
+      }
+    }catch(e){}
+    await new Promise(r=>setTimeout(r,300));
+  }
+  return opps;
+}
+async function updatePortfolioPrices(){
   const k=getAVKey();if(!k||!S.portfolio.length)return;
   const today=new Date().toDateString();
   if(localStorage.getItem('v-price-date')===today){document.getElementById('price-chip').style.display='';return;}
@@ -374,12 +641,8 @@ async function updatePrices(){
     try{
       const r=await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${t}&apikey=${k}`);
       const d=await r.json();
-      const price=parseFloat(d['Global Quote']?.['05. price']);
-      if(price&&!isNaN(price)){
-        S.portfolio.forEach(p=>{if(p.ticker===t)p.currentPrice=price;});
-        await db('portfolio','PATCH',{current_price:price},`?ticker=eq.${t}&status=eq.committed`);
-        updated=true;
-      }
+      const p=parseFloat(d['Global Quote']?.['05. price']);
+      if(p&&!isNaN(p)){S.portfolio.forEach(x=>{if(x.ticker===t&&x.status==='committed')x.currentPrice=p;});await db('portfolio','PATCH',{current_price:p},`?ticker=eq.${t}&status=eq.committed`);updated=true;}
     }catch(e){}
     await new Promise(r=>setTimeout(r,300));
   }
@@ -388,28 +651,48 @@ async function updatePrices(){
 
 // SCAN
 function getApiKey(){return localStorage.getItem('v-api-key')||'';}
-async function runScan(){
+async function runScan(type='weekly'){
   const key=getApiKey();
   if(!key){nav('set');alert('Add your Anthropic API key in Settings first.');return;}
-  const btn=document.getElementById('scan-btn');
+  const isDaily=type==='daily';
+  const btn=isDaily?document.getElementById('daily-btn'):document.getElementById('scan-btn');
   btn.disabled=true;btn.textContent='…';
   document.getElementById('scan-loading').classList.add('show');
   document.getElementById('urgent-banner').classList.remove('show');
-  document.getElementById('report-area').innerHTML='';
+  if(!isDaily)document.getElementById('report-area').innerHTML='';
   const i=S.interests;
-  const prompt=`You are an expert investment research AI. Investor profile:
+  const prompt=isDaily?
+`You are an expert short-term trading AI. Investor profile: Sectors: ${i.sectors.join(', ')||'General'}, Geographies: ${i.geos.join(', ')||'Global'}, Risk: ${i.risk}.
+${i.watchlist?`Always include analysis on: ${i.watchlist}.`:''}
+${i.note?`Notes: ${i.note}`:''}
+Date: ${new Date().toDateString()}
+
+Generate a DAILY scan for short-term trading opportunities (1-5 day holds). Look for: momentum plays, technical breakouts, earnings reactions, macro news catalysts.
+Return ONLY valid JSON:
+{"opportunities":[{"ticker":"TICKER","name":"Company Name","sector":"Sector","thesis":"1-2 sentence short-term catalyst","horizon":"short","urgent":false,"urgentReason":"","targetPrice":0,"stopLoss":0,"currentPrice":0,"upside":8,"riskLevel":"Medium"}]}
+Generate 3-5 opportunities. Use real tickers. Focus on near-term catalysts. Return ONLY the JSON.`
+:
+`You are an expert investment research AI. Investor profile:
 - Sectors: ${i.sectors.join(', ')||'General'}
 - Geographies: ${i.geos.join(', ')||'Global'}
-- Risk: ${i.risk}
-- Horizon: ${i.horizon}
-- Special focus: ${i.note||'none'}
+- Risk: ${i.risk}, Horizon: ${i.horizon}
+- Market cap preference: ${i.mktcap.join(', ')||'Any'}
+- Style: ${i.style.join(', ')||'Any'}
+- Asset types: ${i.assets.join(', ')||'Stocks'}
+- Avoid: ${i.avoid.join(', ')||'Nothing specific'}
+- Min upside target: ${i.minUpside}%
+- Max position concentration: ${i.maxConc}%
+- ESG: ${i.esg}, Dividend: ${i.dividend}
+${i.watchlist?`- Always include: ${i.watchlist}`:''}
+${i.note?`- Special notes: ${i.note}`:''}
 - Date: ${new Date().toDateString()}
-Generate a weekly investment intelligence report. Return ONLY valid JSON no extra text:
-{"reportSummary":"2-3 sentence market overview","hasUrgent":false,"opportunities":[{"ticker":"TICKER","name":"Company Name","sector":"Sector","thesis":"2-sentence thesis","horizon":"short","urgent":false,"urgentReason":"","targetPrice":150.00,"stopLoss":120.00,"currentPrice":135.00,"upside":11.1,"riskLevel":"Medium"}]}
-Generate 3-5 realistic opportunities with real tickers. At most 1 urgent.
-Important: currentPrice, targetPrice and stopLoss will be overridden with live data — focus on upside % (always positive, between 8-40%) and the thesis quality.
-Return ONLY the JSON.`;
+
+Generate a weekly investment intelligence report. Return ONLY valid JSON:
+{"reportSummary":"2-3 sentence market overview","hasUrgent":false,"opportunities":[{"ticker":"TICKER","name":"Company Name","sector":"Sector","thesis":"2-sentence thesis","horizon":"medium","urgent":false,"urgentReason":"","targetPrice":0,"stopLoss":0,"currentPrice":0,"upside":15,"riskLevel":"Medium"}]}
+Generate 3-5 opportunities. Use real tickers. Respect all profile preferences. Return ONLY the JSON.`;
+
   try{
+    setScanMsg(isDaily?'AI scanning for daily plays…':'AI scanning markets…');
     const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1200,messages:[{role:'user',content:prompt}]})});
     if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`Error ${res.status}`);}
     const data=await res.json();
@@ -417,128 +700,186 @@ Return ONLY the JSON.`;
     const s=text.indexOf('{'),e=text.lastIndexOf('}');
     if(s===-1)throw new Error('Could not parse AI response');
     const p=JSON.parse(text.slice(s,e+1));
-    S.opps=(p.opportunities||[]).map((o,idx)=>({...o,id:Date.now()+idx,scannedAt:new Date().toISOString()}));
+    let newOpps=(p.opportunities||[]).map((o,idx)=>({...o,id:Date.now()+idx,scannedAt:new Date().toISOString(),isDaily}));
 
-    // Fetch live prices for each opportunity from Alpha Vantage
-    const avKey=getAVKey();
-    if(avKey){
-      document.getElementById('scan-loading').querySelector('span').textContent='Fetching live prices…';
-      for(let i=0;i<S.opps.length;i++){
-        try{
-          const r=await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${S.opps[i].ticker}&apikey=${avKey}`);
-          const d=await r.json();
-          const livePrice=parseFloat(d['Global Quote']?.['05. price']);
-          if(livePrice&&!isNaN(livePrice)){
-            S.opps[i].currentPrice=livePrice;
-            // Recalculate target price relative to live price using original upside %
-            const originalUpside=S.opps[i].upside||10;
-            const absUpside=Math.abs(originalUpside);
-            S.opps[i].targetPrice=parseFloat((livePrice*(1+absUpside/100)).toFixed(2));
-            S.opps[i].stopLoss=parseFloat((livePrice*0.92).toFixed(2));
-            S.opps[i].upside=absUpside;
-          }
-        }catch(e){}
-        await new Promise(r=>setTimeout(r,300));
-      }
+    setScanMsg('Fetching live prices…');
+    newOpps=await fetchLivePrices(newOpps);
+
+    if(isDaily){
+      S.dailyOpps=newOpps;
+      await dbSaveOpps(S.dailyOpps,true);
+      dbLog(`Daily scan — ${S.dailyOpps.length} short-term plays`);
+    }else{
+      S.opps=newOpps;
+      await dbSaveOpps(S.opps,false);
+      dbLog(`Weekly scan — ${S.opps.length} opportunities`);
+      document.getElementById('report-area').innerHTML=`<div class="ai-report"><div class="rep-header"><div class="rep-icon">✦</div><div><div class="rep-title">Weekly Intelligence Report</div><div class="rep-date">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div></div></div><div class="rep-body">${p.reportSummary||''}</div></div>`;
+      if(p.hasUrgent)document.getElementById('urgent-banner').classList.add('show');
     }
-
-    await dbSaveOpps(S.opps);
-    dbLog(`AI scan — ${S.opps.length} opportunities surfaced`);
-    document.getElementById('report-area').innerHTML=`<div class="ai-report"><div class="rep-header"><div class="rep-icon">✦</div><div><div class="rep-title">Weekly Intelligence Report</div><div class="rep-date">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div></div></div><div class="rep-body">${p.reportSummary||''}</div></div>`;
-    if(p.hasUrgent)document.getElementById('urgent-banner').classList.add('show');
     renderOpps();
   }catch(err){
     document.getElementById('report-area').innerHTML=`<div class="card" style="border-color:#fca5a5;background:#fff5f5"><p style="font-size:13px;color:#b91c1c">⚠ ${err.message}</p></div>`;
     renderOpps();
   }
   document.getElementById('scan-loading').classList.remove('show');
-  btn.disabled=false;btn.textContent='⟳ Scan';
+  btn.disabled=false;
+  btn.textContent=isDaily?'⚡ Daily':'⟳ Weekly Scan';
 }
+function setScanMsg(m){document.getElementById('scan-msg').textContent=m;}
 
 // OPPS
-function setFilter(f,el){S.filter=f;document.querySelectorAll('.fp').forEach(p=>p.classList.remove('active'));el.classList.add('active');renderOpps();}
-function renderOpps(){
-  let opps=S.opps;
-  if(S.filter==='urgent')opps=opps.filter(o=>o.urgent);
-  if(S.filter==='weekly')opps=opps.filter(o=>!o.urgent);
-  const list=document.getElementById('opps-list'),empty=document.getElementById('opps-empty');
-  if(!opps.length){list.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';
-  list.innerHTML=opps.map(o=>`
-    <div class="opp-card ${o.urgent?'urgent':''}">
-      <div class="opp-header"><div><div class="opp-ticker">${o.ticker}</div><div class="opp-name">${o.name} · ${o.sector}</div></div>
-      <div class="opp-badges">${o.urgent?'<span class="badge badge-urgent">⚡ Urgent</span>':'<span class="badge badge-weekly">Weekly</span>'}<span class="badge badge-${o.horizon||'medium'}">${o.horizon||'medium'}</span></div></div>
-      <p class="opp-thesis">${o.thesis}</p>
-      ${o.urgent&&o.urgentReason?`<p style="font-size:12px;color:var(--gold);font-weight:500;margin-bottom:10px">⚡ ${o.urgentReason}</p>`:''}
-      <div class="opp-metrics">
-        <div><div class="opp-metric-label">Current</div><div class="opp-metric-value">$${(o.currentPrice||0).toFixed(2)}</div></div>
-        <div><div class="opp-metric-label">Target</div><div class="opp-metric-value">$${(o.targetPrice||0).toFixed(2)}</div></div>
-        <div><div class="opp-metric-label">Upside</div><div class="opp-metric-value up">+${Math.abs(o.upside||0).toFixed(1)}%</div></div>
-        <div><div class="opp-metric-label">Risk</div><div class="opp-metric-value">${o.riskLevel||'—'}</div></div>
-      </div>
-      <div class="opp-actions"><button class="btn btn-gold btn-sm" style="flex:1" onclick="openCommit(${o.id})">✓ Commit</button><button class="btn btn-outline btn-sm" style="flex:1" onclick="dismissOpp(${o.id})">Dismiss</button></div>
-    </div>`).join('');
+function setFilter(f,el){
+  S.filter=f;
+  document.querySelectorAll('.fp').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  renderOpps();
 }
-async function dismissOpp(id){S.opps=S.opps.filter(o=>o.id!==id);await dbDelOpp(id);renderOpps();}
 
-// COMMIT
-function openCommit(id){
-  const o=S.opps.find(x=>x.id===id);if(!o)return;
-  S.pending=o;
+function renderOpps(){
+  const allOpps=[...S.opps,...S.dailyOpps];
+  let weeklyOpps=S.opps,dailyOpps=S.dailyOpps;
+  if(S.filter==='urgent'){weeklyOpps=weeklyOpps.filter(o=>o.urgent);dailyOpps=dailyOpps.filter(o=>o.urgent);}
+  if(S.filter==='weekly')dailyOpps=[];
+  if(S.filter==='daily')weeklyOpps=[];
+
+  const hasDailySection=dailyOpps.length>0||S.dailyOpps.length>0;
+  document.getElementById('daily-section').style.display=hasDailySection&&S.filter!=='weekly'?'block':'none';
+  document.getElementById('weekly-label').style.display=hasDailySection&&weeklyOpps.length&&S.filter!=='daily'?'block':'none';
+  document.getElementById('daily-btn').style.display='';
+
+  const empty=document.getElementById('opps-empty');
+  if(!weeklyOpps.length&&!dailyOpps.length){document.getElementById('opps-list').innerHTML='';document.getElementById('daily-list').innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+
+  document.getElementById('daily-list').innerHTML=dailyOpps.map(o=>oppCardHTML(o,true)).join('');
+  document.getElementById('opps-list').innerHTML=weeklyOpps.map(o=>oppCardHTML(o,false)).join('');
+}
+
+function oppCardHTML(o,isDaily){
+  return`<div class="opp-card ${o.urgent?'urgent':isDaily?'daily-opp':''}">
+    <div class="opp-header"><div><div class="opp-ticker">${o.ticker}</div><div class="opp-name">${o.name} · ${o.sector}</div></div>
+    <div class="opp-badges">${o.urgent?'<span class="badge badge-urgent">⚡ Urgent</span>':isDaily?'<span class="badge badge-daily">⚡ Daily</span>':'<span class="badge badge-weekly">Weekly</span>'}<span class="badge badge-${o.horizon||'medium'}">${o.horizon||'medium'}</span></div></div>
+    <p class="opp-thesis">${o.thesis}</p>
+    ${o.urgent&&o.urgentReason?`<p style="font-size:12px;color:var(--gold);font-weight:500;margin-bottom:10px">⚡ ${o.urgentReason}</p>`:''}
+    <div class="opp-metrics">
+      <div><div class="opp-metric-label">Current</div><div class="opp-metric-value">$${(o.currentPrice||0).toFixed(2)}</div></div>
+      <div><div class="opp-metric-label">Target</div><div class="opp-metric-value">$${(o.targetPrice||0).toFixed(2)}</div></div>
+      <div><div class="opp-metric-label">Upside</div><div class="opp-metric-value up">+${Math.abs(o.upside||0).toFixed(1)}%</div></div>
+      <div><div class="opp-metric-label">Risk</div><div class="opp-metric-value">${o.riskLevel||'—'}</div></div>
+    </div>
+    <div class="opp-actions"><button class="btn btn-gold btn-sm" style="flex:1" onclick="openCommit(${o.id},${isDaily})">✓ Commit</button><button class="btn btn-outline btn-sm" style="flex:1" onclick="dismissOpp(${o.id},${isDaily})">Dismiss</button></div>
+  </div>`;
+}
+
+async function dismissOpp(id,isDaily){
+  if(isDaily)S.dailyOpps=S.dailyOpps.filter(o=>o.id!==id);
+  else S.opps=S.opps.filter(o=>o.id!==id);
+  await dbDelOpp(id);renderOpps();
+}
+
+// COMMIT MODE
+function selectMode(m){
+  S.commitMode=m;
+  document.getElementById('mode-committed').classList.toggle('active',m==='committed');
+  document.getElementById('mode-watching').classList.toggle('active',m==='watching');
+  document.getElementById('committed-fields').style.display=m==='committed'?'block':'none';
+  document.getElementById('watching-fields').style.display=m==='watching'?'block':'none';
+  document.getElementById('commit-btn').textContent=m==='committed'?'✓ Commit Position':'👁 Add to Watchlist';
+}
+
+function selectAddMode(m){
+  S.addMode=m;
+  document.getElementById('add-mode-committed').classList.toggle('active',m==='committed');
+  document.getElementById('add-mode-watching').classList.toggle('active',m==='watching');
+  document.getElementById('sa-qty-row').style.display=m==='committed'?'grid':'none';
+}
+
+function openCommit(id,isDaily){
+  const list=isDaily?S.dailyOpps:S.opps;
+  const o=list.find(x=>x.id===id);if(!o)return;
+  S.pending=o;S.commitMode='committed';
+  selectMode('committed');
   document.getElementById('sc-ticker').value=o.ticker;
+  document.getElementById('sw-ticker').value=o.ticker;
   document.getElementById('sc-price').value=o.currentPrice||'';
   document.getElementById('sc-current').value=o.currentPrice||'';
   document.getElementById('sc-target').value=o.targetPrice||'';
   document.getElementById('sc-stop').value=o.stopLoss||'';
   document.getElementById('sc-notes').value=o.thesis||'';
   document.getElementById('sc-qty').value='';
-  document.getElementById('sc-title').textContent=`Commit — ${o.ticker}`;
+  document.getElementById('sc-title').textContent=`${o.ticker} — ${o.name}`;
   openSheet('sh-commit');
 }
+
 async function doCommit(){
   const o=S.pending;if(!o)return;
-  const qty=parseFloat(document.getElementById('sc-qty').value);
-  const price=parseFloat(document.getElementById('sc-price').value);
-  if(!qty||!price){alert('Quantity and entry price are required.');return;}
-  const pos={id:Date.now(),ticker:o.ticker,name:o.name,sector:o.sector,qty,entryPrice:price,currentPrice:parseFloat(document.getElementById('sc-current').value)||price,targetPrice:parseFloat(document.getElementById('sc-target').value)||null,stopLoss:parseFloat(document.getElementById('sc-stop').value)||null,notes:document.getElementById('sc-notes').value,status:'committed',horizon:o.horizon,committedAt:new Date().toISOString()};
-  S.portfolio.push(pos);S.opps=S.opps.filter(x=>x.id!==o.id);
+  const isWatching=S.commitMode==='watching';
+  const pos={
+    id:Date.now(),ticker:o.ticker,name:o.name,sector:o.sector,
+    qty:isWatching?0:parseFloat(document.getElementById('sc-qty').value)||0,
+    entryPrice:isWatching?0:parseFloat(document.getElementById('sc-price').value)||0,
+    currentPrice:isWatching?o.currentPrice:parseFloat(document.getElementById('sc-current').value)||o.currentPrice,
+    targetPrice:isWatching?o.targetPrice:parseFloat(document.getElementById('sc-target').value)||null,
+    stopLoss:isWatching?o.stopLoss:parseFloat(document.getElementById('sc-stop').value)||null,
+    notes:document.getElementById('sc-notes').value,
+    status:isWatching?'watching':'committed',
+    horizon:o.horizon,committedAt:new Date().toISOString()
+  };
+  if(!isWatching&&(!pos.qty||!pos.entryPrice)){alert('Quantity and entry price are required.');return;}
+  S.portfolio.push(pos);
+  const isDaily=o.isDaily;
+  if(isDaily)S.dailyOpps=S.dailyOpps.filter(x=>x.id!==o.id);
+  else S.opps=S.opps.filter(x=>x.id!==o.id);
   await dbSavePos(pos);await dbDelOpp(o.id);
-  dbLog(`Committed to ${o.ticker} — ${qty} shares @ $${price.toFixed(2)}`);
+  dbLog(isWatching?`Added ${o.ticker} to watchlist`:`Committed to ${o.ticker} — ${pos.qty} shares @ $${pos.entryPrice.toFixed(2)}`);
   closeSheet('sh-commit');renderOpps();
 }
 
 // PORTFOLIO
+let portFilter='all';
+function setPortFilter(f,el){portFilter=f;document.querySelectorAll('.fp').forEach(p=>p.classList.remove('active'));el.classList.add('active');renderPort();}
+
 function renderPort(){
   const list=document.getElementById('port-list'),empty=document.getElementById('port-empty'),stats=document.getElementById('port-stats');
-  if(!S.portfolio.length){list.innerHTML='';empty.style.display='block';stats.innerHTML='';return;}
-  empty.style.display='none';
-  let inv=0,cur=0;S.portfolio.forEach(p=>{inv+=p.qty*p.entryPrice;cur+=p.qty*p.currentPrice;});
+  // Only committed positions affect performance
+  const committed=S.portfolio.filter(p=>p.status==='committed');
+  let inv=0,cur=0;committed.forEach(p=>{inv+=p.qty*p.entryPrice;cur+=p.qty*p.currentPrice;});
   const pnl=cur-inv,pct=inv?pnl/inv*100:0;
-  const w=S.portfolio.filter(p=>p.currentPrice>p.entryPrice).length;
-  stats.innerHTML=`
+  const w=committed.filter(p=>p.currentPrice>p.entryPrice).length;
+  stats.innerHTML=S.portfolio.length?`
     <div class="stat-card"><div class="stat-label">Invested</div><div class="stat-value">$${Math.round(inv).toLocaleString()}</div></div>
     <div class="stat-card"><div class="stat-label">Value</div><div class="stat-value">$${Math.round(cur).toLocaleString()}</div></div>
     <div class="stat-card"><div class="stat-label">P&L</div><div class="stat-value ${pnl>=0?'up':'down'}">${pnl>=0?'+':''}$${Math.abs(Math.round(pnl)).toLocaleString()}</div><div class="stat-delta ${pnl>=0?'up':'down'}">${pct>=0?'+':''}${pct.toFixed(2)}%</div></div>
-    <div class="stat-card"><div class="stat-label">Win Rate</div><div class="stat-value">${S.portfolio.length?Math.round(w/S.portfolio.length*100):0}%</div></div>`;
-  list.innerHTML=S.portfolio.map(p=>{
-    const pnl=(p.currentPrice-p.entryPrice)*p.qty,pct=(p.currentPrice-p.entryPrice)/p.entryPrice*100;
+    <div class="stat-card"><div class="stat-label">Win Rate</div><div class="stat-value">${committed.length?Math.round(w/committed.length*100):0}%</div><div class="stat-delta neutral">${committed.length} active</div></div>`:'';
+
+  const filtered=portFilter==='all'?S.portfolio:S.portfolio.filter(p=>p.status===portFilter);
+  if(!filtered.length){list.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  list.innerHTML=filtered.map(p=>{
+    const isWatching=p.status==='watching',isClosed=p.status==='closed';
+    const pnl=isClosed&&p.closedPrice?(p.closedPrice-p.entryPrice)*p.qty:(p.currentPrice-p.entryPrice)*p.qty;
+    const exitPrice=isClosed&&p.closedPrice?p.closedPrice:p.currentPrice;
+    const pct=p.entryPrice?(exitPrice-p.entryPrice)/p.entryPrice*100:0;
     const cls=pnl>=0?'pnl-pos':'pnl-neg';
     const sb={committed:'badge-committed',watching:'badge-watching',closed:'badge-closed'}[p.status]||'';
-    return `<div class="pos-card">
-      <div class="pos-row"><div><div class="pos-ticker">${p.ticker} <span class="badge ${sb}" style="vertical-align:middle">${p.status}</span></div><div class="pos-name">${p.name||p.sector||'—'}</div></div>
-      <div style="text-align:right"><div class="${cls}" style="font-family:var(--font-mono);font-size:15px;font-weight:500">${pnl>=0?'+':''}$${Math.abs(pnl).toFixed(0)}</div><div class="${cls}" style="font-size:12px">${pct>=0?'+':''}${pct.toFixed(1)}%</div></div></div>
-      <div class="pos-meta">
-        <div class="pos-mi"><div class="pos-ml">Entry</div><div class="pos-mv">$${p.entryPrice.toFixed(2)}</div></div>
-        <div class="pos-mi"><div class="pos-ml">Current</div><div class="pos-mv">$${p.currentPrice.toFixed(2)}</div></div>
-        <div class="pos-mi"><div class="pos-ml">Qty</div><div class="pos-mv">${p.qty}</div></div>
-        <div class="pos-mi"><div class="pos-ml">Value</div><div class="pos-mv">$${(p.qty*p.currentPrice).toFixed(0)}</div></div>
-        <div class="pos-mi"><button class="btn btn-ghost" style="font-size:12px" onclick="openEdit(${p.id})">✎</button></div>
+    return`<div class="pos-card ${isWatching?'watching-card':''} ${isClosed?'closed-card':''}">
+      <div class="pos-row">
+        <div><div class="pos-ticker">${p.ticker} <span class="badge ${sb}" style="vertical-align:middle">${p.status}</span></div><div class="pos-name">${p.name||p.sector||'—'}</div></div>
+        ${isWatching?`<div style="text-align:right"><div style="font-size:12px;color:var(--muted)">Current</div><div style="font-family:var(--font-mono);font-size:15px;font-weight:500">$${(p.currentPrice||0).toFixed(2)}</div></div>`
+        :`<div style="text-align:right"><div class="${cls}" style="font-family:var(--font-mono);font-size:15px;font-weight:500">${pnl>=0?'+':''}$${Math.abs(pnl).toFixed(0)}</div><div class="${cls}" style="font-size:12px">${pct>=0?'+':''}${pct.toFixed(1)}%</div></div>`}
       </div>
+      ${!isWatching?`<div class="pos-meta">
+        <div class="pos-mi"><div class="pos-ml">Entry</div><div class="pos-mv">$${(p.entryPrice||0).toFixed(2)}</div></div>
+        ${isClosed?`<div class="pos-mi"><div class="pos-ml">Closed at</div><div class="pos-mv">$${(p.closedPrice||0).toFixed(2)}</div></div>`:`<div class="pos-mi"><div class="pos-ml">Current</div><div class="pos-mv">$${(p.currentPrice||0).toFixed(2)}</div></div>`}
+        <div class="pos-mi"><div class="pos-ml">Qty</div><div class="pos-mv">${p.qty}</div></div>
+        <div class="pos-mi"><div class="pos-ml">${isClosed?'P&L':'Value'}</div><div class="pos-mv ${cls}">$${isClosed?Math.abs(pnl).toFixed(0):(p.qty*p.currentPrice).toFixed(0)}</div></div>
+        <div class="pos-mi"><button class="btn btn-ghost" style="font-size:12px" onclick="openEdit(${p.id})">✎</button></div>
+      </div>`:`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)"><span style="font-size:12px;color:var(--muted)">${p.notes||'Watching for entry'}</span><button class="btn btn-ghost" style="font-size:12px" onclick="openEdit(${p.id})">✎</button></div>`}
     </div>`;
   }).join('');
 }
 
-// EDIT
+// EDIT & CLOSE
 function openEdit(id){
   const p=S.portfolio.find(x=>x.id===id);if(!p)return;
   document.getElementById('se-id').value=id;
@@ -546,7 +887,6 @@ function openEdit(id){
   document.getElementById('se-qty').value=p.qty;
   document.getElementById('se-price').value=p.entryPrice;
   document.getElementById('se-current').value=p.currentPrice;
-  document.getElementById('se-status').value=p.status;
   document.getElementById('se-notes').value=p.notes||'';
   document.getElementById('se-target').value=p.targetPrice||'';
   document.getElementById('se-stop').value=p.stopLoss||'';
@@ -558,48 +898,85 @@ async function doSaveEdit(){
   p.qty=parseFloat(document.getElementById('se-qty').value)||p.qty;
   p.entryPrice=parseFloat(document.getElementById('se-price').value)||p.entryPrice;
   p.currentPrice=parseFloat(document.getElementById('se-current').value)||p.currentPrice;
-  p.status=document.getElementById('se-status').value;
   p.notes=document.getElementById('se-notes').value;
   p.targetPrice=parseFloat(document.getElementById('se-target').value)||null;
   p.stopLoss=parseFloat(document.getElementById('se-stop').value)||null;
   await dbUpdPos(p);dbLog(`Updated — ${p.ticker}`);closeSheet('sh-edit');renderPort();
 }
-
+function openClosePosition(){
+  const id=parseInt(document.getElementById('se-id').value);
+  const p=S.portfolio.find(x=>x.id===id);if(!p)return;
+  document.getElementById('close-price').value=p.currentPrice||'';
+  document.getElementById('close-notes').value='';
+  document.getElementById('close-summary').style.display='none';
+  closeSheet('sh-edit');
+  openSheet('sh-close-pos');
+  document.getElementById('close-price').addEventListener('input',function(){
+    const cp=parseFloat(this.value);
+    const p2=S.portfolio.find(x=>x.id===id);
+    if(!p2||!cp)return;
+    const realizedPnl=(cp-p2.entryPrice)*p2.qty;
+    const pct=(cp-p2.entryPrice)/p2.entryPrice*100;
+    const s=document.getElementById('close-summary');
+    s.style.display='block';
+    s.innerHTML=`<strong>Realized P&L:</strong> <span class="${realizedPnl>=0?'up':'down'}">${realizedPnl>=0?'+':''}$${Math.abs(realizedPnl).toFixed(2)} (${pct>=0?'+':''}${pct.toFixed(2)}%)</span>`;
+  },{once:false});
+}
+async function doClosePos(){
+  const id=parseInt(document.getElementById('se-id').value)||parseInt(document.querySelector('#sh-edit #se-id')?.value);
+  // find id from open sheet
+  const allIds=document.querySelectorAll('[id="se-id"]');
+  let posId=null;allIds.forEach(el=>{if(el.value)posId=parseInt(el.value);});
+  const p=S.portfolio.find(x=>x.id===posId);if(!p)return;
+  const cp=parseFloat(document.getElementById('close-price').value);
+  if(!cp){alert('Please enter a closing price.');return;}
+  p.closedPrice=cp;p.status='closed';p.notes=(document.getElementById('close-notes').value||p.notes);
+  await dbUpdPos(p);
+  const pnl=(cp-p.entryPrice)*p.qty;
+  dbLog(`Closed ${p.ticker} @ $${cp.toFixed(2)} — P&L: ${pnl>=0?'+':''}$${pnl.toFixed(2)}`);
+  closeSheet('sh-close-pos');renderPort();
+}
 async function doDeletePos(){
   const id=parseInt(document.getElementById('se-id').value);
   const p=S.portfolio.find(x=>x.id===id);if(!p)return;
   if(!confirm(`Delete ${p.ticker} position? This cannot be undone.`))return;
   S.portfolio=S.portfolio.filter(x=>x.id!==id);
   await db('portfolio','DELETE',null,`?id=eq.${id}`);
-  dbLog(`Deleted position — ${p.ticker}`);
-  closeSheet('sh-edit');renderPort();
+  dbLog(`Deleted — ${p.ticker}`);closeSheet('sh-edit');renderPort();
 }
 
 // ADD MANUAL
 async function doAddManual(){
   const ticker=document.getElementById('sa-ticker').value.toUpperCase().trim();
-  const qty=parseFloat(document.getElementById('sa-qty').value);
-  const price=parseFloat(document.getElementById('sa-price').value);
-  if(!ticker||!qty||!price){alert('Ticker, quantity and entry price are required.');return;}
-  const pos={id:Date.now(),ticker,name:document.getElementById('sa-name').value.trim(),qty,entryPrice:price,currentPrice:parseFloat(document.getElementById('sa-current').value)||price,sector:document.getElementById('sa-sector').value,notes:document.getElementById('sa-notes').value,status:'committed',horizon:'medium',committedAt:new Date().toISOString()};
+  const isWatching=S.addMode==='watching';
+  const qty=isWatching?0:parseFloat(document.getElementById('sa-qty').value)||0;
+  const price=isWatching?0:parseFloat(document.getElementById('sa-price').value)||0;
+  if(!ticker){alert('Ticker is required.');return;}
+  if(!isWatching&&(!qty||!price)){alert('Quantity and entry price are required.');return;}
+  const pos={id:Date.now(),ticker,name:document.getElementById('sa-name').value.trim(),qty,entryPrice:price,currentPrice:parseFloat(document.getElementById('sa-current').value)||price,sector:document.getElementById('sa-sector').value,notes:document.getElementById('sa-notes').value,status:isWatching?'watching':'committed',horizon:'medium',committedAt:new Date().toISOString()};
   S.portfolio.push(pos);await dbSavePos(pos);
-  dbLog(`Added ${ticker} — ${qty} @ $${price.toFixed(2)}`);closeSheet('sh-add');renderPort();
+  dbLog(isWatching?`Added ${ticker} to watchlist`:`Added ${ticker} — ${qty} @ $${price.toFixed(2)}`);
+  closeSheet('sh-add');renderPort();
 }
 
 // ANALYTICS
 function renderAn(){
-  let inv=0,cur=0;S.portfolio.forEach(p=>{inv+=p.qty*p.entryPrice;cur+=p.qty*p.currentPrice;});
+  const committed=S.portfolio.filter(p=>p.status==='committed');
+  let inv=0,cur=0;committed.forEach(p=>{inv+=p.qty*p.entryPrice;cur+=p.qty*p.currentPrice;});
   const pnl=cur-inv,pct=inv?pnl/inv*100:0;
   const scans=S.log.filter(l=>l.text.includes('scan')).length;
+  // Closed positions realized P&L
+  const closed=S.portfolio.filter(p=>p.status==='closed'&&p.closedPrice);
+  const realizedPnl=closed.reduce((acc,p)=>(acc+(p.closedPrice-p.entryPrice)*p.qty),0);
   document.getElementById('an-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-label">Return</div><div class="stat-value ${pnl>=0?'up':'down'}">${pct>=0?'+':''}${pct.toFixed(2)}%</div></div>
-    <div class="stat-card"><div class="stat-label">Positions</div><div class="stat-value">${S.portfolio.filter(p=>p.status==='committed').length}</div></div>
-    <div class="stat-card"><div class="stat-label">Scans Run</div><div class="stat-value">${scans}</div></div>
-    <div class="stat-card"><div class="stat-label">Committed</div><div class="stat-value">${S.log.filter(l=>l.text.includes('Committed')||l.text.includes('Added')).length}</div></div>`;
-  const sec={};S.portfolio.forEach(p=>{const s=p.sector||'Other';if(!sec[s])sec[s]={inv:0,cur:0};sec[s].inv+=p.qty*p.entryPrice;sec[s].cur+=p.qty*p.currentPrice;});
-  document.getElementById('an-sector').innerHTML=Object.keys(sec).length?Object.entries(sec).map(([n,s])=>{const p=s.inv?(s.cur-s.inv)/s.inv*100:0;return`<div class="bar-row"><div class="bar-label">${n}</div><div class="bar-track"><div class="bar-fill ${p>=0?'green':'red'}" style="width:${Math.min(Math.abs(p),100)}%"></div></div><div class="bar-value ${p>=0?'up':'down'}">${p>=0?'+':''}${p.toFixed(1)}%</div></div>`;}).join(''):'<p style="font-size:13px;color:var(--muted)">No positions yet.</p>';
-  const mix={short:0,medium:0,long:0};S.portfolio.forEach(p=>{if(mix[p.horizon]!==undefined)mix[p.horizon]++;});
-  const tot=S.portfolio.length||1;
+    <div class="stat-card"><div class="stat-label">Unrealized P&L</div><div class="stat-value ${pnl>=0?'up':'down'}">${pct>=0?'+':''}${pct.toFixed(2)}%</div></div>
+    <div class="stat-card"><div class="stat-label">Realized P&L</div><div class="stat-value ${realizedPnl>=0?'up':'down'}">${realizedPnl>=0?'+':''}$${Math.abs(Math.round(realizedPnl)).toLocaleString()}</div></div>
+    <div class="stat-card"><div class="stat-label">Positions</div><div class="stat-value">${committed.length}<span style="font-size:13px;color:var(--muted)"> + ${S.portfolio.filter(p=>p.status==='watching').length}w</span></div></div>
+    <div class="stat-card"><div class="stat-label">Scans</div><div class="stat-value">${scans}</div></div>`;
+  const sec={};committed.forEach(p=>{const s=p.sector||'Other';if(!sec[s])sec[s]={inv:0,cur:0};sec[s].inv+=p.qty*p.entryPrice;sec[s].cur+=p.qty*p.currentPrice;});
+  document.getElementById('an-sector').innerHTML=Object.keys(sec).length?Object.entries(sec).map(([n,s])=>{const p=s.inv?(s.cur-s.inv)/s.inv*100:0;return`<div class="bar-row"><div class="bar-label">${n}</div><div class="bar-track"><div class="bar-fill ${p>=0?'green':'red'}" style="width:${Math.min(Math.abs(p),100)}%"></div></div><div class="bar-value ${p>=0?'up':'down'}">${p>=0?'+':''}${p.toFixed(1)}%</div></div>`;}).join(''):'<p style="font-size:13px;color:var(--muted)">No committed positions yet.</p>';
+  const mix={short:0,medium:0,long:0};committed.forEach(p=>{if(mix[p.horizon]!==undefined)mix[p.horizon]++;});
+  const tot=committed.length||1;
   document.getElementById('an-mix').innerHTML=Object.entries(mix).map(([h,c])=>`<div class="bar-row"><div class="bar-label" style="text-transform:capitalize">${h}-term</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(c/tot*100)}%"></div></div><div class="bar-value">${c}</div></div>`).join('');
   const logEl=document.getElementById('an-log');
   if(!S.log.length){logEl.innerHTML='';document.getElementById('an-log-empty').style.display='block';}
@@ -607,22 +984,54 @@ function renderAn(){
 }
 
 // INTERESTS
-const SECTS=['Technology','Healthcare','Clean Energy','Financials','Consumer','Real Estate','Materials','Crypto','Defence','Biotech'];
-const GEOS=['US','EU','UK','Asia','Emerging Markets','Global'];
-const RISKS=['Conservative','Moderate','Aggressive'];
-const HORS=['Short-term','Medium-term','Long-term'];
+const SECTS=['Technology','Healthcare','Clean Energy','Financials','Consumer','Real Estate','Materials','Crypto','Defence','Biotech','Industrials','Utilities','Commodities'];
+const GEOS=['US','EU','UK','Asia','Japan','India','Emerging Markets','Latin America','Global'];
+const RISKS=['Conservative','Moderate','Aggressive','Very Aggressive'];
+const HORS=['Short-term','Medium-term','Long-term','Mixed'];
+const MKTCAPS=['Mega Cap','Large Cap','Mid Cap','Small Cap','Micro Cap'];
+const STYLES=['Value','Growth','Momentum','Dividend','Quality','Contrarian','Index'];
+const ASSETS=['Stocks','ETFs','REITs','Bonds','Crypto','Commodities','Options'];
+const AVOID_OPTS=['Tobacco','Gambling','Weapons','Fossil Fuels','Alcohol','High Debt'];
+const ESGS=['No preference','ESG-focused','ESG-aware','Exclude ESG'];
+const DIVS=['No preference','Dividend growth','High yield','No dividends'];
+
 function renderInt(){
   mkTags('i-sectors',SECTS,S.interests.sectors,v=>{S.interests.sectors=tog(S.interests.sectors,v);renderInt();});
   mkTags('i-geos',GEOS,S.interests.geos,v=>{S.interests.geos=tog(S.interests.geos,v);renderInt();});
   mkTags('i-risk',RISKS,[S.interests.risk],v=>{S.interests.risk=v;renderInt();});
   mkTags('i-horizon',HORS,[S.interests.horizon],v=>{S.interests.horizon=v;renderInt();});
+  mkTags('i-mktcap',MKTCAPS,S.interests.mktcap,v=>{S.interests.mktcap=tog(S.interests.mktcap,v);renderInt();});
+  mkTags('i-style',STYLES,S.interests.style,v=>{S.interests.style=tog(S.interests.style,v);renderInt();});
+  mkTags('i-assets',ASSETS,S.interests.assets,v=>{S.interests.assets=tog(S.interests.assets,v);renderInt();});
+  mkTags('i-avoid',AVOID_OPTS,S.interests.avoid,v=>{S.interests.avoid=tog(S.interests.avoid,v);renderInt();});
+  mkTags('i-esg',ESGS,[S.interests.esg],v=>{S.interests.esg=v;renderInt();});
+  mkTags('i-div',DIVS,[S.interests.dividend],v=>{S.interests.dividend=v;renderInt();});
+  setRangeVal('i-min-upside',S.interests.minUpside,'i-upside-val','%');
+  setRangeVal('i-max-conc',S.interests.maxConc,'i-conc-val','%');
   document.getElementById('i-note').value=S.interests.note||'';
+  document.getElementById('i-watchlist').value=S.interests.watchlist||'';
   const i=S.interests;
-  document.getElementById('i-summary').innerHTML=`Sectors: <strong style="color:var(--gold-light)">${i.sectors.join(', ')||'None'}</strong><br>Geographies: <strong style="color:var(--gold-light)">${i.geos.join(', ')||'None'}</strong><br>Risk: <strong style="color:var(--gold-light)">${i.risk}</strong> · Horizon: <strong style="color:var(--gold-light)">${i.horizon}</strong>${i.note?`<br><em style="color:rgba(255,255,255,.4)">${i.note}</em>`:''}`;
+  document.getElementById('i-summary').innerHTML=
+    `Sectors: <strong style="color:var(--gold-light)">${i.sectors.join(', ')||'None'}</strong><br>
+     Geo: <strong style="color:var(--gold-light)">${i.geos.join(', ')||'None'}</strong><br>
+     Risk: <strong style="color:var(--gold-light)">${i.risk}</strong> · Horizon: <strong style="color:var(--gold-light)">${i.horizon}</strong><br>
+     Style: <strong style="color:var(--gold-light)">${i.style.join(', ')||'Any'}</strong> · Assets: <strong style="color:var(--gold-light)">${i.assets.join(', ')||'Any'}</strong><br>
+     Min upside: <strong style="color:var(--gold-light)">${i.minUpside}%</strong> · Max concentration: <strong style="color:var(--gold-light)">${i.maxConc}%</strong><br>
+     ESG: <strong style="color:var(--gold-light)">${i.esg}</strong> · Dividend: <strong style="color:var(--gold-light)">${i.dividend}</strong>
+     ${i.avoid.length?`<br>Avoid: <strong style="color:var(--rose-light)">${i.avoid.join(', ')}</strong>`:''}
+     ${i.watchlist?`<br>Always watch: <strong style="color:var(--gold-light)">${i.watchlist}</strong>`:''}
+     ${i.note?`<br><em style="color:rgba(255,255,255,.4)">${i.note}</em>`:''}`;
 }
 function mkTags(id,all,sel,cb){document.getElementById(id).innerHTML=all.map(v=>`<div class="tag ${sel.includes(v)?'on':''}" onclick='(${cb.toString()})("${v}")'>${v}</div>`).join('');}
 function tog(arr,v){return arr.includes(v)?arr.filter(x=>x!==v):[...arr,v];}
-async function saveInterests(){S.interests.note=document.getElementById('i-note').value;await dbSaveInts();renderInt();dbLog('Updated investment interests');alert('✓ Interests saved.');}
+function updateRangeLabel(inputId,labelId,suffix){const v=document.getElementById(inputId).value;document.getElementById(labelId).textContent=v+suffix;S.interests[inputId==='i-min-upside'?'minUpside':'maxConc']=parseInt(v);}
+function setRangeVal(inputId,val,labelId,suffix){document.getElementById(inputId).value=val;document.getElementById(labelId).textContent=val+suffix;}
+async function saveInterests(){
+  S.interests.note=document.getElementById('i-note').value;
+  S.interests.watchlist=document.getElementById('i-watchlist').value;
+  S.interests.minUpside=parseInt(document.getElementById('i-min-upside').value);
+  S.interests.maxConc=parseInt(document.getElementById('i-max-conc').value);
+  await dbSaveInts();renderInt();dbLog('Updated investment interests');alert('✓ Interests saved.');}
 
 // SETTINGS
 function renderSet(){document.getElementById('s-apikey').value=localStorage.getItem('v-api-key')||'';document.getElementById('s-avkey').value=localStorage.getItem('v-av-key')||'';}
@@ -636,7 +1045,12 @@ function closeSheet(id){document.getElementById(id).classList.remove('open');}
 function bgClose(e,id){if(e.target===document.getElementById(id))closeSheet(id);}
 
 // INIT
-async function init(){await loadDB();renderOpps();nav('opp');updatePrices();}
+async function init(){
+  if(localStorage.getItem('v-sb-collapsed')==='1')document.getElementById('sidebar').classList.add('collapsed');
+  await loadDB();renderOpps();nav('opp');updatePortfolioPrices();
+  // Add is_daily column migration if needed
+  try{await db('opportunities','POST',[],'')}catch(e){}
+}
 checkLock();
 </script>
 </body>
