@@ -227,6 +227,25 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 }
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
+
+.opp-section{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.opp-section-title{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.opp-bullets{list-style:none;padding:0;margin:0}
+.opp-bullets li{font-size:12px;color:#333;padding:3px 0 3px 14px;position:relative;line-height:1.5}
+.opp-bullets li::before{content:'›';position:absolute;left:0;color:var(--gold);font-weight:700}
+.opp-bullets.risks li::before{color:var(--rose)}
+.source-card{background:var(--cream);border-radius:8px;padding:10px 12px;margin-bottom:6px}
+.source-title{font-size:12px;font-weight:500;color:var(--ink)}
+.source-desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
+.conviction-bar{display:flex;align-items:center;gap:8px;margin-top:8px}
+.conviction-dot{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.conviction-dot.fill-high{background:var(--emerald)}
+.conviction-dot.fill-medium{background:var(--gold)}
+.conviction-dot.fill-low{background:var(--rose)}
+.opp-expand-btn{font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px 0;font-family:var(--font-body);display:flex;align-items:center;gap:4px;margin-top:4px}
+.opp-expand-btn:hover{color:var(--ink)}
+.opp-details{display:none}
+.opp-details.open{display:block}
 </style>
 </head>
 <body>
@@ -563,8 +582,8 @@ async function loadDB(){
       db('interests','GET',null,'?id=eq.1'),
     ]);
     S.portfolio=(port||[]).map(p=>({id:p.id,ticker:p.ticker,name:p.name,sector:p.sector,qty:p.qty,entryPrice:p.entry_price,currentPrice:p.current_price,targetPrice:p.target_price,stopLoss:p.stop_loss,notes:p.notes,status:p.status,horizon:p.horizon,closedPrice:p.closed_price,committedAt:p.committed_at}));
-    S.opps=(opps||[]).filter(o=>!o.is_daily).map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent,urgentReason:o.urgent_reason,targetPrice:o.target_price,stopLoss:o.stop_loss,currentPrice:o.current_price,upside:o.upside,riskLevel:o.risk_level,scannedAt:o.scanned_at}));
-    S.dailyOpps=(opps||[]).filter(o=>o.is_daily).map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent,urgentReason:o.urgent_reason,targetPrice:o.target_price,stopLoss:o.stop_loss,currentPrice:o.current_price,upside:o.upside,riskLevel:o.risk_level,scannedAt:o.scanned_at,isDaily:true}));
+    S.opps=(opps||[]).filter(o=>!o.is_daily).map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent,urgentReason:o.urgent_reason,targetPrice:o.target_price,stopLoss:o.stop_loss,currentPrice:o.current_price,upside:o.upside,riskLevel:o.risk_level,scannedAt:o.scanned_at,catalysts:o.catalysts||[],risks:o.risks||[],valuation:o.valuation||'',technicals:o.technicals||'',sources:o.sources||[],conviction:o.conviction||'Medium'}));
+    S.dailyOpps=(opps||[]).filter(o=>o.is_daily).map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent,urgentReason:o.urgent_reason,targetPrice:o.target_price,stopLoss:o.stop_loss,currentPrice:o.current_price,upside:o.upside,riskLevel:o.risk_level,scannedAt:o.scanned_at,isDaily:true,catalysts:o.catalysts||[],risks:o.risks||[],valuation:o.valuation||'',technicals:o.technicals||'',sources:o.sources||[],conviction:o.conviction||'Medium'}));
     S.log=(log||[]).map(l=>({ts:l.ts,text:l.text}));
     if(ints&&ints[0]){const i=ints[0];S.interests={...S.interests,...{sectors:i.sectors||[],geos:i.geos||[],risk:i.risk||'Moderate',horizon:i.horizon||'Medium-term',mktcap:i.mktcap||[],style:i.style||[],assets:i.assets||['Stocks'],avoid:i.avoid||[],minUpside:i.min_upside||10,maxConc:i.max_conc||20,esg:i.esg||'No preference',dividend:i.dividend||'No preference',watchlist:i.watchlist||'',note:i.note||''}};}
   }catch(e){console.error('DB error',e);}
@@ -574,7 +593,7 @@ async function dbUpdPos(p){await db('portfolio','PATCH',{qty:p.qty,entry_price:p
 async function dbDelOpp(id){await db('opportunities','DELETE',null,`?id=eq.${id}`);}
 async function dbSaveOpps(opps,isDaily=false){
   await db('opportunities','DELETE',null,`?is_daily=eq.${isDaily}`);
-  if(opps.length)await db('opportunities','POST',opps.map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent||false,urgent_reason:o.urgentReason||'',target_price:o.targetPrice,stop_loss:o.stopLoss,current_price:o.currentPrice,upside:o.upside,risk_level:o.riskLevel,scanned_at:o.scannedAt,is_daily:isDaily})));
+  if(opps.length)await db('opportunities','POST',opps.map(o=>({id:o.id,ticker:o.ticker,name:o.name,sector:o.sector,thesis:o.thesis,horizon:o.horizon,urgent:o.urgent||false,urgent_reason:o.urgentReason||'',target_price:o.targetPrice,stop_loss:o.stopLoss,current_price:o.currentPrice,upside:o.upside,risk_level:o.riskLevel,scanned_at:o.scannedAt,is_daily:isDaily,catalysts:o.catalysts||[],risks:o.risks||[],valuation:o.valuation||'',technicals:o.technicals||'',sources:o.sources||[],conviction:o.conviction||'Medium'})));
 }
 async function dbSaveInts(){
   const i=S.interests;
@@ -669,8 +688,8 @@ Date: ${new Date().toDateString()}
 
 Generate a DAILY scan for short-term trading opportunities (1-5 day holds). Look for: momentum plays, technical breakouts, earnings reactions, macro news catalysts.
 Return ONLY valid JSON:
-{"opportunities":[{"ticker":"TICKER","name":"Company Name","sector":"Sector","thesis":"1-2 sentence short-term catalyst","horizon":"short","urgent":false,"urgentReason":"","targetPrice":0,"stopLoss":0,"currentPrice":0,"upside":8,"riskLevel":"Medium"}]}
-Generate 3-5 opportunities. Use real tickers. Focus on near-term catalysts. Return ONLY the JSON.`
+{"opportunities":[{"ticker":"TICKER","name":"Company Name","sector":"Sector","thesis":"2-3 sentence short-term thesis with specific catalyst","catalysts":["Specific near-term catalyst"],"risks":["Main risk"],"technicals":"1 sentence technical setup","sources":[{"title":"Source name","description":"What to search for"}],"horizon":"short","urgent":false,"urgentReason":"","targetPrice":0,"stopLoss":0,"currentPrice":0,"upside":8,"riskLevel":"Medium","conviction":"Medium"}]}
+Generate 6-8 short-term opportunities. Use real tickers. Return ONLY the JSON.`
 :
 `You are an expert investment research AI. Investor profile:
 - Sectors: ${i.sectors.join(', ')||'General'}
@@ -688,12 +707,12 @@ ${i.note?`- Special notes: ${i.note}`:''}
 - Date: ${new Date().toDateString()}
 
 Generate a weekly investment intelligence report. Return ONLY valid JSON:
-{"reportSummary":"2-3 sentence market overview","hasUrgent":false,"opportunities":[{"ticker":"TICKER","name":"Company Name","sector":"Sector","thesis":"2-sentence thesis","horizon":"medium","urgent":false,"urgentReason":"","targetPrice":0,"stopLoss":0,"currentPrice":0,"upside":15,"riskLevel":"Medium"}]}
-Generate 3-5 opportunities. Use real tickers. Respect all profile preferences. Return ONLY the JSON.`;
+{"reportSummary":"3-4 sentence market overview with macro context","hasUrgent":false,"opportunities":[{"ticker":"TICKER","name":"Company Name","sector":"Sector","thesis":"3-4 sentence investment thesis explaining the core opportunity","catalysts":["Specific upcoming catalyst 1","Specific upcoming catalyst 2","Specific upcoming catalyst 3"],"risks":["Key risk 1","Key risk 2"],"valuation":"2 sentences on current valuation vs peers or historical","technicals":"1 sentence on price action or technical setup","sources":[{"title":"Source or publication name","description":"What to search for or read"},{"title":"Source 2","description":"What to look for"}],"horizon":"medium","urgent":false,"urgentReason":"","targetPrice":0,"stopLoss":0,"currentPrice":0,"upside":15,"riskLevel":"Medium","conviction":"High"}]}
+Generate 8-12 opportunities. Use real tickers. Respect all profile preferences. For each opportunity provide a thorough analysis. Return ONLY the JSON.`;
 
   try{
     setScanMsg(isDaily?'AI scanning for daily plays…':'AI scanning markets…');
-    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1200,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:4000,messages:[{role:'user',content:prompt}]})});
     if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`Error ${res.status}`);}
     const data=await res.json();
     const text=(data.content||[]).map(b=>b.text||'').join('');
@@ -755,20 +774,42 @@ function renderOpps(){
   document.getElementById('opps-list').innerHTML=weeklyOpps.map(o=>oppCardHTML(o,false)).join('');
 }
 
+function convictionDots(level){
+  const levels=['Low','Medium','High'];
+  const idx=levels.indexOf(level||'Medium');
+  return levels.map((_,i)=>`<div class="conviction-dot ${i<=idx?'fill-'+level.toLowerCase():''}" title="${level}"></div>`).join('');
+}
+
 function oppCardHTML(o,isDaily){
+  const uid='opp-'+o.id;
+  const cats=Array.isArray(o.catalysts)&&o.catalysts.length?`<div class="opp-section"><div class="opp-section-title">Catalysts</div><ul class="opp-bullets">${o.catalysts.map(c=>`<li>${c}</li>`).join('')}</ul></div>`:'';
+  const risks=Array.isArray(o.risks)&&o.risks.length?`<div class="opp-section"><div class="opp-section-title">Key risks</div><ul class="opp-bullets risks">${o.risks.map(r=>`<li>${r}</li>`).join('')}</ul></div>`:'';
+  const val=o.valuation?`<div class="opp-section"><div class="opp-section-title">Valuation</div><p style="font-size:12px;color:#333;line-height:1.5">${o.valuation}</p></div>`:'';
+  const tech=o.technicals?`<div class="opp-section"><div class="opp-section-title">Technicals</div><p style="font-size:12px;color:#333;line-height:1.5">${o.technicals}</p></div>`:'';
+  const srcs=Array.isArray(o.sources)&&o.sources.length?`<div class="opp-section"><div class="opp-section-title">Research sources</div>${o.sources.map(s=>`<div class="source-card"><div class="source-title">📄 ${s.title}</div><div class="source-desc">${s.description}</div></div>`).join('')}</div>`:'';
+  const conv=o.conviction?`<div style="margin-top:10px;display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--muted)">Conviction</span><div class="conviction-bar">${convictionDots(o.conviction)}</div><span style="font-size:11px;font-weight:500">${o.conviction}</span></div>`:'';
+  const hasDetails=cats||risks||val||tech||srcs;
   return`<div class="opp-card ${o.urgent?'urgent':isDaily?'daily-opp':''}">
     <div class="opp-header"><div><div class="opp-ticker">${o.ticker}</div><div class="opp-name">${o.name} · ${o.sector}</div></div>
     <div class="opp-badges">${o.urgent?'<span class="badge badge-urgent">⚡ Urgent</span>':isDaily?'<span class="badge badge-daily">⚡ Daily</span>':'<span class="badge badge-weekly">Weekly</span>'}<span class="badge badge-${o.horizon||'medium'}">${o.horizon||'medium'}</span></div></div>
+    ${o.urgent&&o.urgentReason?`<p style="font-size:12px;color:var(--gold);font-weight:500;margin-bottom:8px">⚡ ${o.urgentReason}</p>`:''}
     <p class="opp-thesis">${o.thesis}</p>
-    ${o.urgent&&o.urgentReason?`<p style="font-size:12px;color:var(--gold);font-weight:500;margin-bottom:10px">⚡ ${o.urgentReason}</p>`:''}
-    <div class="opp-metrics">
+    ${conv}
+    <div class="opp-metrics" style="margin-top:12px">
       <div><div class="opp-metric-label">Current</div><div class="opp-metric-value">$${(o.currentPrice||0).toFixed(2)}</div></div>
       <div><div class="opp-metric-label">Target</div><div class="opp-metric-value">$${(o.targetPrice||0).toFixed(2)}</div></div>
       <div><div class="opp-metric-label">Upside</div><div class="opp-metric-value up">+${Math.abs(o.upside||0).toFixed(1)}%</div></div>
       <div><div class="opp-metric-label">Risk</div><div class="opp-metric-value">${o.riskLevel||'—'}</div></div>
     </div>
-    <div class="opp-actions"><button class="btn btn-gold btn-sm" style="flex:1" onclick="openCommit(${o.id},${isDaily})">✓ Commit</button><button class="btn btn-outline btn-sm" style="flex:1" onclick="dismissOpp(${o.id},${isDaily})">Dismiss</button></div>
+    ${hasDetails?`<button class="opp-expand-btn" onclick="toggleDetails('${uid}',this)">▸ Full analysis</button><div class="opp-details" id="${uid}">${cats}${risks}${val}${tech}${srcs}</div>`:'' }
+    <div class="opp-actions" style="margin-top:12px"><button class="btn btn-gold btn-sm" style="flex:1" onclick="openCommit(${o.id},${isDaily})">✓ Commit</button><button class="btn btn-outline btn-sm" style="flex:1" onclick="dismissOpp(${o.id},${isDaily})">Dismiss</button></div>
   </div>`;
+}
+
+function toggleDetails(uid,btn){
+  const el=document.getElementById(uid);
+  el.classList.toggle('open');
+  btn.textContent=el.classList.contains('open')?'▾ Hide analysis':'▸ Full analysis';
 }
 
 async function dismissOpp(id,isDaily){
