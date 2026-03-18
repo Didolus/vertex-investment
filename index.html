@@ -406,7 +406,9 @@ async function runScan(){
 - Date: ${new Date().toDateString()}
 Generate a weekly investment intelligence report. Return ONLY valid JSON no extra text:
 {"reportSummary":"2-3 sentence market overview","hasUrgent":false,"opportunities":[{"ticker":"TICKER","name":"Company Name","sector":"Sector","thesis":"2-sentence thesis","horizon":"short","urgent":false,"urgentReason":"","targetPrice":150.00,"stopLoss":120.00,"currentPrice":135.00,"upside":11.1,"riskLevel":"Medium"}]}
-Generate 3-5 realistic opportunities with real tickers. At most 1 urgent. Return ONLY the JSON.`;
+Generate 3-5 realistic opportunities with real tickers. At most 1 urgent.
+Important: currentPrice, targetPrice and stopLoss will be overridden with live data — focus on upside % (always positive, between 8-40%) and the thesis quality.
+Return ONLY the JSON.`;
   try{
     const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1200,messages:[{role:'user',content:prompt}]})});
     if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`Error ${res.status}`);}
@@ -427,12 +429,13 @@ Generate 3-5 realistic opportunities with real tickers. At most 1 urgent. Return
           const d=await r.json();
           const livePrice=parseFloat(d['Global Quote']?.['05. price']);
           if(livePrice&&!isNaN(livePrice)){
-            const old=S.opps[i].currentPrice||livePrice;
             S.opps[i].currentPrice=livePrice;
-            // Recalculate upside based on live price
-            if(S.opps[i].targetPrice){
-              S.opps[i].upside=((S.opps[i].targetPrice-livePrice)/livePrice*100);
-            }
+            // Recalculate target price relative to live price using original upside %
+            const originalUpside=S.opps[i].upside||10;
+            const absUpside=Math.abs(originalUpside);
+            S.opps[i].targetPrice=parseFloat((livePrice*(1+absUpside/100)).toFixed(2));
+            S.opps[i].stopLoss=parseFloat((livePrice*0.92).toFixed(2));
+            S.opps[i].upside=absUpside;
           }
         }catch(e){}
         await new Promise(r=>setTimeout(r,300));
@@ -470,7 +473,7 @@ function renderOpps(){
       <div class="opp-metrics">
         <div><div class="opp-metric-label">Current</div><div class="opp-metric-value">$${(o.currentPrice||0).toFixed(2)}</div></div>
         <div><div class="opp-metric-label">Target</div><div class="opp-metric-value">$${(o.targetPrice||0).toFixed(2)}</div></div>
-        <div><div class="opp-metric-label">Upside</div><div class="opp-metric-value up">+${(o.upside||0).toFixed(1)}%</div></div>
+        <div><div class="opp-metric-label">Upside</div><div class="opp-metric-value up">+${Math.abs(o.upside||0).toFixed(1)}%</div></div>
         <div><div class="opp-metric-label">Risk</div><div class="opp-metric-value">${o.riskLevel||'—'}</div></div>
       </div>
       <div class="opp-actions"><button class="btn btn-gold btn-sm" style="flex:1" onclick="openCommit(${o.id})">✓ Commit</button><button class="btn btn-outline btn-sm" style="flex:1" onclick="dismissOpp(${o.id})">Dismiss</button></div>
