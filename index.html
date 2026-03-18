@@ -4,6 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vertex — AI Investment Intelligence</title>
+<script>
+(function() {
+  const PASSWORD = 'Adel1992!';
+  const SESSION_KEY = 'vertex-auth';
+  if (sessionStorage.getItem(SESSION_KEY) === 'true') return;
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('lock-screen').style.display = 'flex';
+    document.getElementById('app-root').style.display = 'none';
+  });
+  window.unlockApp = function() {
+    const val = document.getElementById('lock-password').value;
+    if (val === PASSWORD) {
+      sessionStorage.setItem(SESSION_KEY, 'true');
+      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('app-root').style.display = 'flex';
+    } else {
+      document.getElementById('lock-error').style.display = 'block';
+      document.getElementById('lock-password').value = '';
+      document.getElementById('lock-password').focus();
+    }
+  };
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      const lock = document.getElementById('lock-screen');
+      if (lock && lock.style.display !== 'none') window.unlockApp();
+    }
+  });
+})();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -629,6 +658,25 @@ body {
 </style>
 </head>
 <body>
+
+<div id="lock-screen" style="display:none;position:fixed;inset:0;background:#0e0e0e;z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:24px;">
+  <div style="text-align:center;margin-bottom:8px;">
+    <div style="font-family:Georgia,serif;font-size:28px;font-weight:500;color:#e8d5a3;letter-spacing:0.02em;">Vertex</div>
+    <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:4px;">AI Investment Intelligence</div>
+  </div>
+  <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:32px;width:320px;">
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px;text-align:center;">Enter password to continue</div>
+    <input id="lock-password" type="password" placeholder="Password" autofocus
+      style="width:100%;padding:10px 14px;background:#0e0e0e;border:1px solid #333;border-radius:6px;color:#fff;font-size:14px;font-family:Georgia,serif;letter-spacing:0.05em;outline:none;margin-bottom:10px;">
+    <button onclick="unlockApp()"
+      style="width:100%;padding:10px;background:#c9a84c;border:none;border-radius:6px;color:#0e0e0e;font-size:13px;font-weight:500;cursor:pointer;">
+      Unlock
+    </button>
+    <div id="lock-error" style="display:none;margin-top:10px;font-size:12px;color:#b34a3a;text-align:center;">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<div id="app-root">
 <div class="app">
 
 <!-- Sidebar -->
@@ -1558,5 +1606,6 @@ renderInterests();
 renderOpportunities();
 navigate('opportunities');
 </script>
+</div><!-- app-root -->
 </body>
 </html>
