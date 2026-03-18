@@ -1416,7 +1416,7 @@ function openCommit(id) {
   document.getElementById('commit-modal').classList.add('open');
 }
 
-function commitPosition() {
+async function commitPosition() {
   const opp = state.pendingCommit;
   if (!opp) return;
   const qty = parseFloat(document.getElementById('c-qty').value);
@@ -1539,7 +1539,7 @@ function openEdit(id) {
   document.getElementById('edit-modal').classList.add('open');
 }
 
-function saveEdit() {
+async function saveEdit() {
   const id = parseInt(document.getElementById('e-id').value);
   const pos = state.portfolio.find(p => p.id === id);
   if (!pos) return;
@@ -1563,7 +1563,7 @@ function openAddManual() {
   document.getElementById('add-manual-modal').classList.add('open');
 }
 
-function saveManual() {
+async function saveManual() {
   const ticker = document.getElementById('m-ticker').value.toUpperCase().trim();
   const name = document.getElementById('m-name').value.trim();
   const qty = parseFloat(document.getElementById('m-qty').value);
@@ -1716,6 +1716,20 @@ document.querySelectorAll('.overlay').forEach(el => {
     badge.textContent = state.opportunities.length;
   }
 })();
+
+// Expose functions to global scope for onclick handlers
+window.runAIScan = runAIScan;
+window.navigate = navigate;
+window.filterOpps = filterOpps;
+window.dismissOpp = dismissOpp;
+window.openCommit = openCommit;
+window.commitPosition = commitPosition;
+window.openEdit = openEdit;
+window.saveEdit = saveEdit;
+window.saveManual = saveManual;
+window.saveInterests = saveInterests;
+window.closeModal = closeModal;
+window.openModal = (id) => document.getElementById(id).classList.add('open');
 </script>
 </div><!-- app-root -->
 </body>
