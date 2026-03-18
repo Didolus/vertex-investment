@@ -6,7 +6,7 @@
 <title>Vertex — AI Investment Intelligence</title>
 <script>
 (function() {
-  const PASSWORD = 'Adel1992!';
+  const PASSWORD = 'vertex2024';
   const SESSION_KEY = 'vertex-auth';
   if (sessionStorage.getItem(SESSION_KEY) === 'true') return;
   document.addEventListener('DOMContentLoaded', function() {
@@ -1015,6 +1015,27 @@ body {
 
 <script>
 // ══════════════════════════════════════════════
+// SUPABASE CONFIG
+// ══════════════════════════════════════════════
+const SUPABASE_URL = 'https://ymerzplbiosigynsokwh.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_1RnCr66p4H1ZU-nqiDtBkg_VqybQvkp';
+
+async function db(table, method='GET', body=null, query='') {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}${query}`, {
+    method,
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': method === 'POST' ? 'return=representation' : (method === 'PATCH' ? 'return=representation' : ''),
+    },
+    body: body ? JSON.stringify(body) : null
+  });
+  if (method === 'DELETE' || res.status === 204) return null;
+  return res.json();
+}
+
+// ══════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════
 let state = {
@@ -1032,15 +1053,98 @@ let state = {
   currentFilter: 'all'
 };
 
-// Load from localStorage
-try {
-  const saved = localStorage.getItem('vertex-state');
-  if (saved) state = { ...state, ...JSON.parse(saved) };
-} catch(e) {}
+async function loadFromDB() {
+  try {
+    const [portfolio, opps, log, interests] = await Promise.all([
+      db('portfolio', 'GET', null, '?order=committed_at.desc'),
+      db('opportunities', 'GET', null, '?order=scanned_at.desc'),
+      db('activity_log', 'GET', null, '?order=ts.desc&limit=50'),
+      db('interests', 'GET', null, '?id=eq.1'),
+    ]);
 
-function save() {
-  try { localStorage.setItem('vertex-state', JSON.stringify(state)); } catch(e) {}
+    state.portfolio = (portfolio || []).map(p => ({
+      id: p.id, ticker: p.ticker, name: p.name, sector: p.sector,
+      qty: p.qty, entryPrice: p.entry_price, currentPrice: p.current_price,
+      targetPrice: p.target_price, stopLoss: p.stop_loss,
+      notes: p.notes, status: p.status, horizon: p.horizon,
+      committedAt: p.committed_at
+    }));
+
+    state.opportunities = (opps || []).map(o => ({
+      id: o.id, ticker: o.ticker, name: o.name, sector: o.sector,
+      thesis: o.thesis, horizon: o.horizon, urgent: o.urgent,
+      urgentReason: o.urgent_reason, targetPrice: o.target_price,
+      stopLoss: o.stop_loss, currentPrice: o.current_price,
+      upside: o.upside, riskLevel: o.risk_level, scannedAt: o.scanned_at
+    }));
+
+    state.activityLog = (log || []).map(l => ({ ts: l.ts, text: l.text }));
+
+    if (interests && interests[0]) {
+      const i = interests[0];
+      state.interests = {
+        sectors: i.sectors || [],
+        geos: i.geos || [],
+        risk: i.risk || 'Moderate',
+        horizon: i.horizon || 'Medium-term',
+        note: i.note || ''
+      };
+    }
+  } catch(e) {
+    console.error('DB load error:', e);
+  }
 }
+
+async function savePortfolioItem(pos) {
+  await db('portfolio', 'POST', {
+    id: pos.id, ticker: pos.ticker, name: pos.name, sector: pos.sector,
+    qty: pos.qty, entry_price: pos.entryPrice, current_price: pos.currentPrice,
+    target_price: pos.targetPrice, stop_loss: pos.stopLoss,
+    notes: pos.notes, status: pos.status, horizon: pos.horizon,
+    committed_at: pos.committedAt
+  });
+}
+
+async function updatePortfolioItem(pos) {
+  await db('portfolio', 'PATCH', {
+    qty: pos.qty, entry_price: pos.entryPrice, current_price: pos.currentPrice,
+    target_price: pos.targetPrice, stop_loss: pos.stopLoss,
+    notes: pos.notes, status: pos.status
+  }, `?id=eq.${pos.id}`);
+}
+
+async function deleteOpportunity(id) {
+  await db('opportunities', 'DELETE', null, `?id=eq.${id}`);
+}
+
+async function saveOpportunities(opps) {
+  await db('opportunities', 'DELETE', null, '?id=neq.0');
+  if (opps.length) {
+    await db('opportunities', 'POST', opps.map(o => ({
+      id: o.id, ticker: o.ticker, name: o.name, sector: o.sector,
+      thesis: o.thesis, horizon: o.horizon, urgent: o.urgent,
+      urgent_reason: o.urgentReason, target_price: o.targetPrice,
+      stop_loss: o.stopLoss, current_price: o.currentPrice,
+      upside: o.upside, risk_level: o.riskLevel,
+      scanned_at: o.scannedAt
+    })));
+  }
+}
+
+async function saveInterestsToDB() {
+  const i = state.interests;
+  await db('interests', 'PATCH', {
+    sectors: i.sectors, geos: i.geos,
+    risk: i.risk, horizon: i.horizon, note: i.note
+  }, '?id=eq.1');
+}
+
+async function addLogToDB(text) {
+  await db('activity_log', 'POST', { text, ts: new Date().toISOString() });
+  state.activityLog.unshift({ ts: new Date().toISOString(), text });
+}
+
+function save() {} // no-op, replaced by individual DB calls
 
 // ══════════════════════════════════════════════
 // NAVIGATION
@@ -1109,9 +1213,9 @@ function updateProfileSummary() {
      ${note ? `Focus: <em style="color:rgba(255,255,255,0.5)">${note}</em>` : ''}`;
 }
 
-function saveInterests() {
+async function saveInterests() {
   state.interests.note = document.getElementById('custom-note').value;
-  save();
+  await saveInterestsToDB();
   updateProfileSummary();
   addLog('Updated investment interests profile');
   alert('✓ Interests saved. Next AI scan will use your updated profile.');
@@ -1187,7 +1291,7 @@ Generate 3-5 opportunities relevant to the investor's profile. Make 1 opportunit
       scannedAt: new Date().toISOString()
     }));
 
-    save();
+    await saveOpportunities(state.opportunities);
 
     // Show report
     document.getElementById('ai-report-area').innerHTML = `
@@ -1287,10 +1391,10 @@ function filterOpps(f) {
   renderOpportunities();
 }
 
-function dismissOpp(id) {
+async function dismissOpp(id) {
   state.opportunities = state.opportunities.filter(o => o.id !== id);
   document.getElementById('opp-badge').textContent = state.opportunities.length;
-  save();
+  await deleteOpportunity(id);
   renderOpportunities();
 }
 
@@ -1340,8 +1444,9 @@ function commitPosition() {
   state.portfolio.push(pos);
   state.opportunities = state.opportunities.filter(o => o.id !== opp.id);
   document.getElementById('opp-badge').textContent = state.opportunities.length;
+  await savePortfolioItem(pos);
+  await deleteOpportunity(opp.id);
   addLog(`Committed to ${opp.ticker} — ${qty} shares @ $${price.toFixed(2)}`);
-  save();
   closeModal('commit-modal');
   renderOpportunities();
 }
@@ -1591,8 +1696,7 @@ function closeModal(id) {
 }
 
 function addLog(text) {
-  state.activityLog.push({ ts: new Date().toISOString(), text });
-  save();
+  addLogToDB(text);
 }
 
 document.querySelectorAll('.overlay').forEach(el => {
@@ -1602,9 +1706,16 @@ document.querySelectorAll('.overlay').forEach(el => {
 // ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
-renderInterests();
-renderOpportunities();
-navigate('opportunities');
+(async function init() {
+  await loadFromDB();
+  renderInterests();
+  renderOpportunities();
+  navigate('opportunities');
+  const badge = document.getElementById('opp-badge');
+  if (state.opportunities.length) {
+    badge.textContent = state.opportunities.length;
+  }
+})();
 </script>
 </div><!-- app-root -->
 </body>
