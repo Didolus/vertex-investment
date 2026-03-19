@@ -632,11 +632,25 @@ function toggleSidebar(){
 // PRICES
 function getAVKey(){return localStorage.getItem('v-av-key')||'';}
 async function fetchLivePrices(opps){
-  const k=getAVKey();if(!k)return opps;
+  const k=getAVKey();
+  if(!k){
+    // No AV key — mark all prices as unverified
+    return opps.map(o=>({...o,priceVerified:false}));
+  }
+  let rateLimited=false;
   for(let i=0;i<opps.length;i++){
+    if(rateLimited){opps[i].priceVerified=false;continue;}
     try{
+      setScanMsg(`Fetching live price for ${opps[i].ticker}… (${i+1}/${opps.length})`);
       const r=await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${opps[i].ticker}&apikey=${k}`);
       const d=await r.json();
+      // Detect rate limit response
+      if(d['Note']||d['Information']){
+        console.warn('Alpha Vantage rate limit hit');
+        rateLimited=true;
+        opps[i].priceVerified=false;
+        continue;
+      }
       const lp=parseFloat(d['Global Quote']?.['05. price']);
       if(lp&&!isNaN(lp)){
         opps[i].currentPrice=lp;
@@ -644,9 +658,15 @@ async function fetchLivePrices(opps){
         opps[i].targetPrice=parseFloat((lp*(1+absUpside/100)).toFixed(2));
         opps[i].stopLoss=parseFloat((lp*0.92).toFixed(2));
         opps[i].upside=absUpside;
+        opps[i].priceVerified=true;
+      } else {
+        opps[i].priceVerified=false;
       }
-    }catch(e){}
-    await new Promise(r=>setTimeout(r,300));
+    }catch(e){opps[i].priceVerified=false;}
+    await new Promise(r=>setTimeout(r,1200)); // 1.2s gap = max 5 calls/min on free tier
+  }
+  if(rateLimited){
+    console.warn('Some prices could not be fetched due to rate limit');
   }
   return opps;
 }
@@ -813,7 +833,7 @@ function oppCardHTML(o,isDaily){
     <p class="opp-thesis">${o.thesis}</p>
     ${conv}
     <div class="opp-metrics" style="margin-top:12px">
-      <div><div class="opp-metric-label">Current</div><div class="opp-metric-value">$${(o.currentPrice||0).toFixed(2)}</div></div>
+      <div><div class="opp-metric-label">Current ${o.priceVerified===false?'<span title="AI estimate — add Alpha Vantage key for live prices" style="color:var(--rose);cursor:help">~</span>':'<span title="Live price" style="color:var(--emerald)">✓</span>'}</div><div class="opp-metric-value">$${(o.currentPrice||0).toFixed(2)}</div></div>
       <div><div class="opp-metric-label">Target</div><div class="opp-metric-value">$${(o.targetPrice||0).toFixed(2)}</div></div>
       <div><div class="opp-metric-label">Upside</div><div class="opp-metric-value up">+${Math.abs(o.upside||0).toFixed(1)}%</div></div>
       <div><div class="opp-metric-label">Risk</div><div class="opp-metric-value">${o.riskLevel||'—'}</div></div>
