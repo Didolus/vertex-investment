@@ -725,8 +725,7 @@ Generate exactly 6 opportunities. Use real tickers. Respect all profile preferen
       // Try to recover truncated JSON by trimming to last complete opportunity
       let raw=text.slice(s,e+1);
       // Find the last complete opportunity object
-      const lastComplete=raw.lastIndexOf('},
-    {');
+      const lastComplete=raw.lastIndexOf('},' + String.fromCharCode(10) + '    {');
       const lastComplete2=raw.lastIndexOf('},{');
       const cutAt=Math.max(lastComplete,lastComplete2);
       if(cutAt>0){
