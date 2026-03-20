@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -12,196 +13,196 @@ html,body{height:100%;overflow:hidden}
 body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.6}
 
 /* LOCK */
-#lock{position:fixed;inset:0;background:var(--ink);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+#lock{position:fixed;inset:0;background:var(–ink);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px}
 #lock.show{display:flex}
-.lock-logo{font-family:var(--font-display);font-size:32px;color:var(--gold-light)}
+.lock-logo{font-family:var(–font-display);font-size:32px;color:var(–gold-light)}
 .lock-tag{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:4px;text-align:center}
 .lock-box{background:#181818;border:1px solid #2a2a2a;border-radius:14px;padding:28px 24px;width:320px;max-width:90vw}
-.lock-box input{width:100%;padding:12px 14px;background:#0e0e0e;border:1px solid #333;border-radius:8px;color:#fff;font-size:15px;font-family:var(--font-body);outline:none;margin-bottom:12px}
-.lock-box input:focus{border-color:var(--gold)}
-.lock-box button{width:100%;padding:12px;background:var(--gold);border:none;border-radius:8px;color:var(--ink);font-size:14px;font-weight:500;font-family:var(--font-body);cursor:pointer}
-.lock-err{display:none;color:var(--rose);font-size:12px;text-align:center;margin-top:10px}
+.lock-box input{width:100%;padding:12px 14px;background:#0e0e0e;border:1px solid #333;border-radius:8px;color:#fff;font-size:15px;font-family:var(–font-body);outline:none;margin-bottom:12px}
+.lock-box input:focus{border-color:var(–gold)}
+.lock-box button{width:100%;padding:12px;background:var(–gold);border:none;border-radius:8px;color:var(–ink);font-size:14px;font-weight:500;font-family:var(–font-body);cursor:pointer}
+.lock-err{display:none;color:var(–rose);font-size:12px;text-align:center;margin-top:10px}
 
 /* APP */
 #app{display:none;flex-direction:column;height:100%}
-.topbar{background:var(--paper);border-bottom:1px solid var(--line);padding:0 16px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:10}
-.topbar-title{font-family:var(--font-display);font-size:17px;font-weight:500}
+.topbar{background:var(–paper);border-bottom:1px solid var(–line);padding:0 16px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:10}
+.topbar-title{font-family:var(–font-display);font-size:17px;font-weight:500}
 .topbar-right{display:flex;align-items:center;gap:8px}
-.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--bnav) + var(--safe-b) + 16px)}
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(–bnav) + var(–safe-b) + 16px)}
 .page{display:none;padding:16px}
 .page.active{display:block}
 
 /* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--bnav) + var(--safe-b));padding-bottom:var(--safe-b);background:var(--ink);display:flex;z-index:20;border-top:1px solid rgba(255,255,255,.06)}
+.bnav{position:fixed;bottom:0;left:0;right:0;height:calc(var(–bnav) + var(–safe-b));padding-bottom:var(–safe-b);background:var(–ink);display:flex;z-index:20;border-top:1px solid rgba(255,255,255,.06)}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:rgba(255,255,255,.35);border:none;background:none;padding:8px 4px;transition:color .15s}
-.nb.active{color:var(--gold-light)}
+.nb.active{color:var(–gold-light)}
 .nb svg{width:20px;height:20px}
 .nb-label{font-size:10px;font-weight:500;letter-spacing:.04em}
 
 /* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:8px;font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid transparent}
-.btn-gold{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:8px;font-family:var(–font-body);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid transparent}
+.btn-gold{background:var(–gold);color:var(–ink);border-color:var(–gold)}
 .btn-gold:active{background:#b8972e;transform:scale(.97)}
-.btn-primary{background:var(--ink);color:var(--paper)}
-.btn-outline{background:transparent;color:var(--ink);border-color:var(--line)}
-.btn-outline:active{background:var(--cream)}
-.btn-ghost{background:transparent;color:var(--muted);border-color:transparent;padding:6px 8px}
+.btn-primary{background:var(–ink);color:var(–paper)}
+.btn-outline{background:transparent;color:var(–ink);border-color:var(–line)}
+.btn-outline:active{background:var(–cream)}
+.btn-ghost{background:transparent;color:var(–muted);border-color:transparent;padding:6px 8px}
 .btn-danger{background:#fff5f5;border:1px solid #fca5a5;color:#b91c1c}
 .btn-sm{padding:7px 12px;font-size:12px}
 .btn-full{width:100%}
 .btn:disabled{opacity:.4;pointer-events:none}
 
 /* CARDS */
-.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
-.card-dark{background:var(--ink);border-color:var(--ink)}
+.card{background:#fff;border:1px solid var(–line);border-radius:12px;padding:16px;margin-bottom:12px}
+.card-dark{background:var(–ink);border-color:var(–ink)}
 
 /* STATS */
 .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.stat-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 12px}
-.stat-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.stat-value{font-family:var(--font-display);font-size:22px;font-weight:500;line-height:1.1}
+.stat-card{background:#fff;border:1px solid var(–line);border-radius:10px;padding:14px 12px}
+.stat-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(–muted);margin-bottom:6px}
+.stat-value{font-family:var(–font-display);font-size:22px;font-weight:500;line-height:1.1}
 .stat-delta{font-size:11px;font-weight:500;margin-top:3px}
-.up{color:var(--emerald)}.down{color:var(--rose)}.neutral{color:var(--muted)}
+.up{color:var(–emerald)}.down{color:var(–rose)}.neutral{color:var(–muted)}
 
 /* BADGES */
 .badge{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:20px;display:inline-block}
-.badge-urgent{background:var(--gold);color:var(--ink)}
-.badge-weekly{background:var(--cream);color:var(--muted);border:1px solid var(--line)}
+.badge-urgent{background:var(–gold);color:var(–ink)}
+.badge-weekly{background:var(–cream);color:var(–muted);border:1px solid var(–line)}
 .badge-daily{background:#e8eef8;color:#2a5090}
-.badge-short{background:var(--rose-light);color:var(--rose)}
+.badge-short{background:var(–rose-light);color:var(–rose)}
 .badge-medium{background:#e8eef8;color:#2a5090}
-.badge-long{background:var(--emerald-light);color:var(--emerald)}
-.badge-committed{background:var(--emerald-light);color:var(--emerald)}
+.badge-long{background:var(–emerald-light);color:var(–emerald)}
+.badge-committed{background:var(–emerald-light);color:var(–emerald)}
 .badge-watching{background:#fff3cd;color:#856404}
-.badge-closed{background:var(--cream);color:var(--muted)}
+.badge-closed{background:var(–cream);color:var(–muted)}
 
 /* MODE TOGGLE */
-.mode-toggle{display:flex;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:16px}
-.mode-btn{flex:1;padding:9px 12px;font-size:13px;font-weight:500;text-align:center;cursor:pointer;background:#fff;color:var(--muted);border:none;font-family:var(--font-body);transition:all .15s}
-.mode-btn.active{background:var(--ink);color:var(--paper)}
+.mode-toggle{display:flex;gap:0;border:1px solid var(–line);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.mode-btn{flex:1;padding:9px 12px;font-size:13px;font-weight:500;text-align:center;cursor:pointer;background:#fff;color:var(–muted);border:none;font-family:var(–font-body);transition:all .15s}
+.mode-btn.active{background:var(–ink);color:var(–paper)}
 
 /* OPP CARDS */
-.opp-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
-.opp-card.urgent{border-color:var(--gold);background:var(--gold-pale)}
+.opp-card{background:#fff;border:1px solid var(–line);border-radius:12px;padding:16px;margin-bottom:12px}
+.opp-card.urgent{border-color:var(–gold);background:var(–gold-pale)}
 .opp-card.daily-opp{border-color:#b5d4f4;background:#f0f7ff}
 .opp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.opp-ticker{font-family:var(--font-mono);font-size:20px;font-weight:500}
-.opp-name{font-size:12px;color:var(--muted);margin-top:2px}
+.opp-ticker{font-family:var(–font-mono);font-size:20px;font-weight:500}
+.opp-name{font-size:12px;color:var(–muted);margin-top:2px}
 .opp-badges{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-.opp-thesis{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:12px}
-.opp-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding-top:12px;border-top:1px solid var(--line);margin-bottom:12px}
-.opp-metric-label{font-size:10px;color:var(--muted)}
+.opp-thesis{font-size:13px;color:var(–muted);line-height:1.55;margin-bottom:12px}
+.opp-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding-top:12px;border-top:1px solid var(–line);margin-bottom:12px}
+.opp-metric-label{font-size:10px;color:var(–muted)}
 .opp-metric-value{font-size:13px;font-weight:500;margin-top:2px}
 .opp-actions{display:flex;gap:8px}
 
 /* SCAN SECTIONS */
-.scan-section-title{font-family:var(--font-display);font-size:15px;font-weight:500;margin:16px 0 10px;display:flex;align-items:center;gap:8px}
+.scan-section-title{font-family:var(–font-display);font-size:15px;font-weight:500;margin:16px 0 10px;display:flex;align-items:center;gap:8px}
 .scan-section-title .badge{vertical-align:middle}
 
 /* POSITION CARDS */
-.pos-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.pos-card{background:#fff;border:1px solid var(–line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
 .pos-card.watching-card{border-color:#e8d87a;background:#fffdf0}
 .pos-card.closed-card{opacity:.6}
 .pos-row{display:flex;justify-content:space-between;align-items:center}
-.pos-ticker{font-family:var(--font-mono);font-size:16px;font-weight:500}
-.pos-name{font-size:12px;color:var(--muted);margin-top:1px}
-.pos-meta{display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:12px}
+.pos-ticker{font-family:var(–font-mono);font-size:16px;font-weight:500}
+.pos-name{font-size:12px;color:var(–muted);margin-top:1px}
+.pos-meta{display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(–line);font-size:12px}
 .pos-mi{text-align:center}
-.pos-ml{color:var(--muted);margin-bottom:2px}
+.pos-ml{color:var(–muted);margin-bottom:2px}
 .pos-mv{font-weight:500}
-.pnl-pos{color:var(--emerald)}.pnl-neg{color:var(--rose)}
+.pnl-pos{color:var(–emerald)}.pnl-neg{color:var(–rose)}
 
 /* FORMS */
 .form-group{margin-bottom:14px}
-.form-label{display:block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.form-input,.form-textarea,.form-select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:8px;font-family:var(--font-body);font-size:14px;background:#fff;color:var(--ink);-webkit-appearance:none;transition:border-color .15s}
-.form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:var(--gold)}
+.form-label{display:block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(–muted);margin-bottom:6px}
+.form-input,.form-textarea,.form-select{width:100%;padding:11px 13px;border:1px solid var(–line);border-radius:8px;font-family:var(–font-body);font-size:14px;background:#fff;color:var(–ink);-webkit-appearance:none;transition:border-color .15s}
+.form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:var(–gold)}
 .form-textarea{resize:vertical;min-height:80px;line-height:1.6}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.form-hint{font-size:11px;color:var(--muted);margin-top:4px}
+.form-hint{font-size:11px;color:var(–muted);margin-top:4px}
 
 /* TAGS */
 .tag-grid{display:flex;flex-wrap:wrap;gap:8px}
-.tag{display:inline-flex;align-items:center;padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;background:var(--cream);border:1px solid var(--line);color:var(--ink);cursor:pointer;transition:all .15s;user-select:none}
-.tag.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tag{display:inline-flex;align-items:center;padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;background:var(–cream);border:1px solid var(–line);color:var(–ink);cursor:pointer;transition:all .15s;user-select:none}
+.tag.on{background:var(–ink);color:var(–paper);border-color:var(–ink)}
 
 /* SHEETS */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;display:none;align-items:flex-end}
 .overlay.open{display:flex}
-.sheet{background:var(--paper);border-radius:20px 20px 0 0;padding:20px 20px calc(20px + var(--safe-b));width:100%;max-height:92vh;overflow-y:auto}
-.sheet-handle{width:36px;height:4px;background:var(--line);border-radius:2px;margin:0 auto 18px}
-.sheet-title{font-family:var(--font-display);font-size:19px;font-weight:500;margin-bottom:4px}
-.sheet-sub{font-size:13px;color:var(--muted);margin-bottom:18px}
-.sheet-footer{display:flex;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.sheet{background:var(–paper);border-radius:20px 20px 0 0;padding:20px 20px calc(20px + var(–safe-b));width:100%;max-height:92vh;overflow-y:auto}
+.sheet-handle{width:36px;height:4px;background:var(–line);border-radius:2px;margin:0 auto 18px}
+.sheet-title{font-family:var(–font-display);font-size:19px;font-weight:500;margin-bottom:4px}
+.sheet-sub{font-size:13px;color:var(–muted);margin-bottom:18px}
+.sheet-footer{display:flex;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(–line)}
 
 /* AI STATES */
-.scan-loading{display:none;align-items:center;gap:12px;padding:14px 16px;background:var(--gold-pale);border:1px solid var(--gold-light);border-radius:10px;font-size:13px;color:var(--muted);margin-bottom:14px}
+.scan-loading{display:none;align-items:center;gap:12px;padding:14px 16px;background:var(–gold-pale);border:1px solid var(–gold-light);border-radius:10px;font-size:13px;color:var(–muted);margin-bottom:14px}
 .scan-loading.show{display:flex}
-.spinner{width:16px;height:16px;border:2px solid var(--gold-light);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+.spinner{width:16px;height:16px;border:2px solid var(–gold-light);border-top-color:var(–gold);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-.ai-report{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
-.rep-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.rep-icon{width:30px;height:30px;background:var(--gold-pale);border:1px solid var(--gold-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.rep-title{font-family:var(--font-display);font-size:14px;font-weight:500}
-.rep-date{font-size:11px;color:var(--muted)}
+.ai-report{background:#fff;border:1px solid var(–line);border-radius:12px;padding:16px;margin-bottom:14px}
+.rep-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(–line)}
+.rep-icon{width:30px;height:30px;background:var(–gold-pale);border:1px solid var(–gold-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.rep-title{font-family:var(–font-display);font-size:14px;font-weight:500}
+.rep-date{font-size:11px;color:var(–muted)}
 .rep-body{font-size:13px;line-height:1.7;color:#333}
-.urgent-banner{display:none;align-items:center;gap:10px;background:var(--gold-pale);border:1px solid var(--gold);border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:13px}
+.urgent-banner{display:none;align-items:center;gap:10px;background:var(–gold-pale);border:1px solid var(–gold);border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:13px}
 .urgent-banner.show{display:flex}
-.dot-pulse{width:8px;height:8px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:pulse 1.5s ease-in-out infinite}
+.dot-pulse{width:8px;height:8px;background:var(–gold);border-radius:50%;flex-shrink:0;animation:pulse 1.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
 
 /* EMPTY */
 .empty{text-align:center;padding:40px 20px}
 .empty-icon{font-size:28px;margin-bottom:10px;opacity:.35}
-.empty-title{font-family:var(--font-display);font-size:17px;margin-bottom:6px}
-.empty-text{font-size:13px;color:var(--muted);line-height:1.6;max-width:280px;margin:0 auto 16px}
+.empty-title{font-family:var(–font-display);font-size:17px;margin-bottom:6px}
+.empty-text{font-size:13px;color:var(–muted);line-height:1.6;max-width:280px;margin:0 auto 16px}
 
 /* BARS */
 .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.bar-label{width:80px;font-size:12px;color:var(--muted);text-align:right;flex-shrink:0}
-.bar-track{flex:1;height:7px;background:var(--cream);border-radius:4px;overflow:hidden}
-.bar-fill{height:100%;border-radius:4px;background:var(--gold);transition:width .6s ease}
-.bar-fill.green{background:var(--emerald)}.bar-fill.red{background:var(--rose)}
-.bar-value{width:44px;font-size:11px;font-weight:500;font-family:var(--font-mono)}
+.bar-label{width:80px;font-size:12px;color:var(–muted);text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:7px;background:var(–cream);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;background:var(–gold);transition:width .6s ease}
+.bar-fill.green{background:var(–emerald)}.bar-fill.red{background:var(–rose)}
+.bar-value{width:44px;font-size:11px;font-weight:500;font-family:var(–font-mono)}
 
 /* TIMELINE */
 .tl{position:relative;padding-left:18px}
-.tl::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--line)}
+.tl::before{content:’’;position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(–line)}
 .tl-item{position:relative;padding-bottom:16px}
-.tl-item::before{content:'';position:absolute;left:-16px;top:5px;width:7px;height:7px;border-radius:50%;background:var(--gold);border:2px solid var(--paper)}
-.tl-date{font-size:11px;color:var(--muted);margin-bottom:2px}
+.tl-item::before{content:’’;position:absolute;left:-16px;top:5px;width:7px;height:7px;border-radius:50%;background:var(–gold);border:2px solid var(–paper)}
+.tl-date{font-size:11px;color:var(–muted);margin-bottom:2px}
 .tl-text{font-size:13px}
 
 /* FILTER */
 .filter-row{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 .filter-row::-webkit-scrollbar{display:none}
-.fp{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;background:var(--cream);border:1px solid var(--line);color:var(--muted);transition:all .15s;flex-shrink:0}
-.fp.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.fp{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;background:var(–cream);border:1px solid var(–line);color:var(–muted);transition:all .15s;flex-shrink:0}
+.fp.active{background:var(–ink);color:var(–paper);border-color:var(–ink)}
 
 /* PRICE CHIP */
-.price-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);padding:2px 8px;background:var(--cream);border-radius:10px}
+.price-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(–muted);padding:2px 8px;background:var(–cream);border-radius:10px}
 
 /* RANGE SLIDER */
 .range-group{margin-bottom:14px}
 .range-row{display:flex;align-items:center;gap:12px}
-.range-row input[type=range]{flex:1;-webkit-appearance:none;height:4px;background:var(--line);border-radius:2px;outline:none}
-.range-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--ink);cursor:pointer}
-.range-val{font-family:var(--font-mono);font-size:12px;font-weight:500;min-width:36px;text-align:right}
+.range-row input[type=range]{flex:1;-webkit-appearance:none;height:4px;background:var(–line);border-radius:2px;outline:none}
+.range-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(–ink);cursor:pointer}
+.range-val{font-family:var(–font-mono);font-size:12px;font-weight:500;min-width:36px;text-align:right}
 
 /* INTERESTS SECTION */
 .int-section{margin-bottom:16px}
-.int-section-title{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.int-section-title{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(–muted);margin-bottom:8px}
 
 /* DESKTOP SIDEBAR — collapsable */
-.sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);background:var(--ink);display:flex;flex-direction:column;padding:0;height:100vh;position:sticky;top:0;flex-shrink:0;transition:width .2s,min-width .2s;overflow:hidden}
+.sidebar{width:var(–sidebar-w);min-width:var(–sidebar-w);background:var(–ink);display:flex;flex-direction:column;padding:0;height:100vh;position:sticky;top:0;flex-shrink:0;transition:width .2s,min-width .2s;overflow:hidden}
 .sidebar.collapsed{width:52px;min-width:52px}
 .sl{padding:18px 20px 18px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.sl-name{font-family:var(--font-display);font-size:19px;color:var(--gold-light);white-space:nowrap;overflow:hidden}
+.sl-name{font-family:var(–font-display);font-size:19px;color:var(–gold-light);white-space:nowrap;overflow:hidden}
 .sl-tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:2px;white-space:nowrap}
 .sl-toggle{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);padding:4px;flex-shrink:0;transition:color .15s}
 .sl-toggle:hover{color:rgba(255,255,255,.8)}
 .snb{display:flex;align-items:center;gap:10px;padding:10px 16px;color:rgba(255,255,255,.45);font-size:13px;cursor:pointer;border-left:2px solid transparent;transition:all .15s;border-top:none;border-right:none;border-bottom:none;background:none;width:100%;white-space:nowrap;overflow:hidden}
-.snb.active{color:var(--gold-light);border-left-color:var(--gold);background:rgba(201,168,76,.07)}
+.snb.active{color:var(–gold-light);border-left-color:var(–gold);background:rgba(201,168,76,.07)}
 .snb svg{width:16px;height:16px;flex-shrink:0}
 .snb-label{overflow:hidden;transition:opacity .15s}
 .sidebar.collapsed .snb-label{opacity:0;width:0}
@@ -213,40 +214,41 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 .main-area{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 
 @media(min-width:768px){
-  html,body{overflow:auto}
-  #app{flex-direction:row;height:100vh}
-  .bnav{display:none}
-  .scroll{padding-bottom:24px}
-  .page{max-width:820px;padding:20px 28px}
-  .topbar{padding:0 28px}
-  .stats-row{grid-template-columns:repeat(4,1fr)}
+html,body{overflow:auto}
+#app{flex-direction:row;height:100vh}
+.bnav{display:none}
+.scroll{padding-bottom:24px}
+.page{max-width:820px;padding:20px 28px}
+.topbar{padding:0 28px}
+.stats-row{grid-template-columns:repeat(4,1fr)}
 }
 @media(max-width:767px){
-  .sidebar{display:none}
-  .main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.sidebar{display:none}
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
 }
 ::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
+::-webkit-scrollbar-thumb{background:var(–line);border-radius:2px}
 
-.opp-section{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
-.opp-section-title{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.opp-section{margin-top:12px;padding-top:12px;border-top:1px solid var(–line)}
+.opp-section-title{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(–muted);margin-bottom:8px}
 .opp-bullets{list-style:none;padding:0;margin:0}
 .opp-bullets li{font-size:12px;color:#333;padding:3px 0 3px 14px;position:relative;line-height:1.5}
-.opp-bullets li::before{content:'›';position:absolute;left:0;color:var(--gold);font-weight:700}
-.opp-bullets.risks li::before{color:var(--rose)}
-.source-card{background:var(--cream);border-radius:8px;padding:10px 12px;margin-bottom:6px}
-.source-title{font-size:12px;font-weight:500;color:var(--ink)}
-.source-desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
+.opp-bullets li::before{content:’›’;position:absolute;left:0;color:var(–gold);font-weight:700}
+.opp-bullets.risks li::before{color:var(–rose)}
+.source-card{background:var(–cream);border-radius:8px;padding:10px 12px;margin-bottom:6px}
+.source-title{font-size:12px;font-weight:500;color:var(–ink)}
+.source-desc{font-size:11px;color:var(–muted);margin-top:2px;line-height:1.4}
 .conviction-bar{display:flex;align-items:center;gap:8px;margin-top:8px}
-.conviction-dot{width:8px;height:8px;border-radius:50%;background:var(--line)}
-.conviction-dot.fill-high{background:var(--emerald)}
-.conviction-dot.fill-medium{background:var(--gold)}
-.conviction-dot.fill-low{background:var(--rose)}
-.opp-expand-btn{font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px 0;font-family:var(--font-body);display:flex;align-items:center;gap:4px;margin-top:4px}
-.opp-expand-btn:hover{color:var(--ink)}
+.conviction-dot{width:8px;height:8px;border-radius:50%;background:var(–line)}
+.conviction-dot.fill-high{background:var(–emerald)}
+.conviction-dot.fill-medium{background:var(–gold)}
+.conviction-dot.fill-low{background:var(–rose)}
+.opp-expand-btn{font-size:11px;color:var(–muted);background:none;border:none;cursor:pointer;padding:4px 0;font-family:var(–font-body);display:flex;align-items:center;gap:4px;margin-top:4px}
+.opp-expand-btn:hover{color:var(–ink)}
 .opp-details{display:none}
 .opp-details.open{display:block}
 </style>
+
 </head>
 <body>
 
@@ -289,180 +291,184 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
       </div>
     </div>
 
-    <div class="scroll">
-      <!-- OPPORTUNITIES -->
-      <div class="page active" id="page-opp">
-        <div class="urgent-banner" id="urgent-banner"><div class="dot-pulse"></div><span><strong>Urgent alert:</strong> Time-sensitive opportunity detected.</span></div>
-        <div class="scan-loading" id="scan-loading"><div class="spinner"></div><span id="scan-msg">AI scanning markets…</span></div>
-        <div id="report-area"></div>
-        <div class="filter-row">
-          <div class="fp active" onclick="setFilter('all',this)">All</div>
-          <div class="fp" onclick="setFilter('urgent',this)">⚡ Urgent</div>
-          <div class="fp" onclick="setFilter('weekly',this)">Weekly</div>
-          <div class="fp" onclick="setFilter('daily',this)">Daily</div>
-        </div>
-        <div id="daily-section" style="display:none">
-          <div class="scan-section-title"><span class="badge badge-daily">⚡ Daily Scan</span> Short-term opportunities</div>
-          <div id="daily-list"></div>
-        </div>
-        <div id="weekly-section">
-          <div class="scan-section-title" id="weekly-label" style="display:none"><span class="badge badge-weekly">Weekly</span> Medium & long-term</div>
-          <div id="opps-list"></div>
-        </div>
-        <div id="opps-empty" class="empty" style="display:none">
-          <div class="empty-icon">◇</div>
-          <div class="empty-title">No opportunities yet</div>
-          <div class="empty-text">Run a weekly scan for medium-term plays, or a daily scan for short-term opportunities.</div>
-          <div style="display:flex;gap:10px;justify-content:center">
-            <button class="btn btn-gold" onclick="runScan('weekly')">⟳ Weekly Scan</button>
-            <button class="btn btn-outline" onclick="runScan('daily')">⚡ Daily Scan</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- PORTFOLIO -->
-      <div class="page" id="page-port">
-        <div class="stats-row" id="port-stats"></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:500">Positions</div>
-          <button class="btn btn-primary btn-sm" onclick="openSheet('sh-add')">+ Add</button>
-        </div>
-        <div class="filter-row">
-          <div class="fp active" onclick="setPortFilter('all',this)">All</div>
-          <div class="fp" onclick="setPortFilter('committed',this)">Committed</div>
-          <div class="fp" onclick="setPortFilter('watching',this)">Watching</div>
-          <div class="fp" onclick="setPortFilter('closed',this)">Closed</div>
-        </div>
-        <div id="port-list"></div>
-        <div id="port-empty" class="empty" style="display:none"><div class="empty-icon">◈</div><div class="empty-title">No positions yet</div><div class="empty-text">Commit to opportunities or add a position manually.</div></div>
-      </div>
-
-      <!-- ANALYTICS -->
-      <div class="page" id="page-an">
-        <div class="stats-row" id="an-stats"></div>
-        <div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Returns by sector</div><div id="an-sector"></div></div>
-        <div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Position mix</div><div id="an-mix"></div></div>
-        <div class="card"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Activity log</div><div class="tl" id="an-log"></div><div id="an-log-empty" style="display:none;font-size:13px;color:var(--muted)">No activity yet.</div></div>
-      </div>
-
-      <!-- INTERESTS -->
-      <div class="page" id="page-int">
-        <!-- Sectors -->
-        <div class="card" style="margin-bottom:12px">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Investment sectors</div>
-          <div class="tag-grid" id="i-sectors"></div>
-        </div>
-        <!-- Geographies -->
-        <div class="card" style="margin-bottom:12px">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Geographies</div>
-          <div class="tag-grid" id="i-geos"></div>
-        </div>
-        <!-- Risk & Horizon -->
-        <div class="card" style="margin-bottom:12px">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Risk & Horizon</div>
-          <div class="int-section">
-            <div class="int-section-title">Risk appetite</div>
-            <div class="tag-grid" id="i-risk"></div>
-          </div>
-          <div class="int-section" style="margin-top:14px">
-            <div class="int-section-title">Investment horizon</div>
-            <div class="tag-grid" id="i-horizon"></div>
-          </div>
-        </div>
-        <!-- Advanced config -->
-        <div class="card" style="margin-bottom:12px">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Advanced configuration</div>
-          <div class="int-section">
-            <div class="int-section-title">Market cap preference</div>
-            <div class="tag-grid" id="i-mktcap"></div>
-          </div>
-          <div class="int-section" style="margin-top:14px">
-            <div class="int-section-title">Investment style</div>
-            <div class="tag-grid" id="i-style"></div>
-          </div>
-          <div class="int-section" style="margin-top:14px">
-            <div class="int-section-title">Asset types</div>
-            <div class="tag-grid" id="i-assets"></div>
-          </div>
-          <div class="int-section" style="margin-top:14px">
-            <div class="int-section-title">Avoid sectors / themes</div>
-            <div class="tag-grid" id="i-avoid"></div>
-          </div>
-          <div class="int-section" style="margin-top:14px">
-            <div class="int-section-title">Minimum upside target</div>
-            <div class="range-group">
-              <div class="range-row">
-                <input type="range" id="i-min-upside" min="5" max="50" step="1" value="10" oninput="updateRangeLabel('i-min-upside','i-upside-val','%')">
-                <div class="range-val" id="i-upside-val">10%</div>
-              </div>
-            </div>
-          </div>
-          <div class="int-section">
-            <div class="int-section-title">Max portfolio concentration per position</div>
-            <div class="range-group">
-              <div class="range-row">
-                <input type="range" id="i-max-conc" min="5" max="50" step="5" value="20" oninput="updateRangeLabel('i-max-conc','i-conc-val','%')">
-                <div class="range-val" id="i-conc-val">20%</div>
-              </div>
-            </div>
-          </div>
-          <div class="int-section">
-            <div class="int-section-title">ESG preference</div>
-            <div class="tag-grid" id="i-esg"></div>
-          </div>
-          <div class="int-section" style="margin-top:14px">
-            <div class="int-section-title">Dividend preference</div>
-            <div class="tag-grid" id="i-div"></div>
-          </div>
-        </div>
-        <!-- Watchlist tickers -->
-        <div class="card" style="margin-bottom:12px">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Always watch these tickers</div>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">The AI will always include analysis on these specific stocks.</p>
-          <input class="form-input" id="i-watchlist" placeholder="AAPL, MSFT, NVDA, TSLA…">
-          <div class="form-hint">Comma-separated ticker symbols</div>
-        </div>
-        <!-- Custom note -->
-        <div class="card" style="margin-bottom:12px">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Custom focus note</div>
-          <p style="font-size:13px;color:var(--muted);margin:6px 0 12px">Tell the AI anything specific.</p>
-          <textarea class="form-textarea" id="i-note" placeholder="e.g. Avoid companies with P/E above 40. Focus on positive free cash flow…"></textarea>
-        </div>
-        <!-- Profile summary -->
-        <div class="card card-dark" style="margin-bottom:12px">
-          <div style="font-family:var(--font-display);font-size:15px;color:var(--gold-light);margin-bottom:8px">Your current profile</div>
-          <div id="i-summary" style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.8"></div>
-          <button class="btn btn-gold btn-full" style="margin-top:16px" onclick="saveInterests()">Save &amp; update AI →</button>
-        </div>
-      </div>
-
-      <!-- SETTINGS -->
-      <div class="page" id="page-set">
-        <div class="card" style="margin-bottom:12px">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Anthropic API Key</div>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Get it at <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold)">console.anthropic.com</a>.</p>
-          <div class="form-group"><label class="form-label">API Key</label><input class="form-input" id="s-apikey" type="password" placeholder="sk-ant-..."></div>
-          <button class="btn btn-primary btn-full" onclick="saveApiKey()">Save Key</button>
-          <div id="s-key-ok" style="font-size:12px;color:var(--emerald);margin-top:8px;display:none">✓ Saved</div>
-        </div>
-        <div class="card" style="margin-bottom:12px">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Alpha Vantage Key</div>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Free at <a href="https://alphavantage.co/support/#api-key" target="_blank" style="color:var(--gold)">alphavantage.co</a>. Used for live prices.</p>
-          <div class="form-group"><label class="form-label">Alpha Vantage Key</label><input class="form-input" id="s-avkey" type="text" placeholder="Your key here"></div>
-          <button class="btn btn-primary btn-full" onclick="saveAVKey()">Save Key</button>
-          <div id="s-av-ok" style="font-size:12px;color:var(--emerald);margin-top:8px;display:none">✓ Saved</div>
-        </div>
-        <div class="card">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">App password</div>
-          <div class="form-group" style="margin-top:12px"><label class="form-label">New Password</label><input class="form-input" id="s-pwd" type="password" placeholder="New password"></div>
-          <button class="btn btn-primary btn-full" onclick="savePwd()">Update Password</button>
-          <div id="s-pwd-ok" style="font-size:12px;color:var(--emerald);margin-top:8px;display:none">✓ Updated</div>
-        </div>
+```
+<div class="scroll">
+  <!-- OPPORTUNITIES -->
+  <div class="page active" id="page-opp">
+    <div class="urgent-banner" id="urgent-banner"><div class="dot-pulse"></div><span><strong>Urgent alert:</strong> Time-sensitive opportunity detected.</span></div>
+    <div class="scan-loading" id="scan-loading"><div class="spinner"></div><span id="scan-msg">AI scanning markets…</span></div>
+    <div id="report-area"></div>
+    <div class="filter-row">
+      <div class="fp active" onclick="setFilter('all',this)">All</div>
+      <div class="fp" onclick="setFilter('urgent',this)">⚡ Urgent</div>
+      <div class="fp" onclick="setFilter('weekly',this)">Weekly</div>
+      <div class="fp" onclick="setFilter('daily',this)">Daily</div>
+    </div>
+    <div id="daily-section" style="display:none">
+      <div class="scan-section-title"><span class="badge badge-daily">⚡ Daily Scan</span> Short-term opportunities</div>
+      <div id="daily-list"></div>
+    </div>
+    <div id="weekly-section">
+      <div class="scan-section-title" id="weekly-label" style="display:none"><span class="badge badge-weekly">Weekly</span> Medium & long-term</div>
+      <div id="opps-list"></div>
+    </div>
+    <div id="opps-empty" class="empty" style="display:none">
+      <div class="empty-icon">◇</div>
+      <div class="empty-title">No opportunities yet</div>
+      <div class="empty-text">Run a weekly scan for medium-term plays, or a daily scan for short-term opportunities.</div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button class="btn btn-gold" onclick="runScan('weekly')">⟳ Weekly Scan</button>
+        <button class="btn btn-outline" onclick="runScan('daily')">⚡ Daily Scan</button>
       </div>
     </div>
   </div>
 
+  <!-- PORTFOLIO -->
+  <div class="page" id="page-port">
+    <div class="stats-row" id="port-stats"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:500">Positions</div>
+      <button class="btn btn-primary btn-sm" onclick="openSheet('sh-add')">+ Add</button>
+    </div>
+    <div class="filter-row">
+      <div class="fp active" onclick="setPortFilter('all',this)">All</div>
+      <div class="fp" onclick="setPortFilter('committed',this)">Committed</div>
+      <div class="fp" onclick="setPortFilter('watching',this)">Watching</div>
+      <div class="fp" onclick="setPortFilter('closed',this)">Closed</div>
+    </div>
+    <div id="port-list"></div>
+    <div id="port-empty" class="empty" style="display:none"><div class="empty-icon">◈</div><div class="empty-title">No positions yet</div><div class="empty-text">Commit to opportunities or add a position manually.</div></div>
+  </div>
+
+  <!-- ANALYTICS -->
+  <div class="page" id="page-an">
+    <div class="stats-row" id="an-stats"></div>
+    <div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Returns by sector</div><div id="an-sector"></div></div>
+    <div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Position mix</div><div id="an-mix"></div></div>
+    <div class="card"><div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Activity log</div><div class="tl" id="an-log"></div><div id="an-log-empty" style="display:none;font-size:13px;color:var(--muted)">No activity yet.</div></div>
+  </div>
+
+  <!-- INTERESTS -->
+  <div class="page" id="page-int">
+    <!-- Sectors -->
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Investment sectors</div>
+      <div class="tag-grid" id="i-sectors"></div>
+    </div>
+    <!-- Geographies -->
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Geographies</div>
+      <div class="tag-grid" id="i-geos"></div>
+    </div>
+    <!-- Risk & Horizon -->
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Risk & Horizon</div>
+      <div class="int-section">
+        <div class="int-section-title">Risk appetite</div>
+        <div class="tag-grid" id="i-risk"></div>
+      </div>
+      <div class="int-section" style="margin-top:14px">
+        <div class="int-section-title">Investment horizon</div>
+        <div class="tag-grid" id="i-horizon"></div>
+      </div>
+    </div>
+    <!-- Advanced config -->
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:14px">Advanced configuration</div>
+      <div class="int-section">
+        <div class="int-section-title">Market cap preference</div>
+        <div class="tag-grid" id="i-mktcap"></div>
+      </div>
+      <div class="int-section" style="margin-top:14px">
+        <div class="int-section-title">Investment style</div>
+        <div class="tag-grid" id="i-style"></div>
+      </div>
+      <div class="int-section" style="margin-top:14px">
+        <div class="int-section-title">Asset types</div>
+        <div class="tag-grid" id="i-assets"></div>
+      </div>
+      <div class="int-section" style="margin-top:14px">
+        <div class="int-section-title">Avoid sectors / themes</div>
+        <div class="tag-grid" id="i-avoid"></div>
+      </div>
+      <div class="int-section" style="margin-top:14px">
+        <div class="int-section-title">Minimum upside target</div>
+        <div class="range-group">
+          <div class="range-row">
+            <input type="range" id="i-min-upside" min="5" max="50" step="1" value="10" oninput="updateRangeLabel('i-min-upside','i-upside-val','%')">
+            <div class="range-val" id="i-upside-val">10%</div>
+          </div>
+        </div>
+      </div>
+      <div class="int-section">
+        <div class="int-section-title">Max portfolio concentration per position</div>
+        <div class="range-group">
+          <div class="range-row">
+            <input type="range" id="i-max-conc" min="5" max="50" step="5" value="20" oninput="updateRangeLabel('i-max-conc','i-conc-val','%')">
+            <div class="range-val" id="i-conc-val">20%</div>
+          </div>
+        </div>
+      </div>
+      <div class="int-section">
+        <div class="int-section-title">ESG preference</div>
+        <div class="tag-grid" id="i-esg"></div>
+      </div>
+      <div class="int-section" style="margin-top:14px">
+        <div class="int-section-title">Dividend preference</div>
+        <div class="tag-grid" id="i-div"></div>
+      </div>
+    </div>
+    <!-- Watchlist tickers -->
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Always watch these tickers</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">The AI will always include analysis on these specific stocks.</p>
+      <input class="form-input" id="i-watchlist" placeholder="AAPL, MSFT, NVDA, TSLA…">
+      <div class="form-hint">Comma-separated ticker symbols</div>
+    </div>
+    <!-- Custom note -->
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Custom focus note</div>
+      <p style="font-size:13px;color:var(--muted);margin:6px 0 12px">Tell the AI anything specific.</p>
+      <textarea class="form-textarea" id="i-note" placeholder="e.g. Avoid companies with P/E above 40. Focus on positive free cash flow…"></textarea>
+    </div>
+    <!-- Profile summary -->
+    <div class="card card-dark" style="margin-bottom:12px">
+      <div style="font-family:var(--font-display);font-size:15px;color:var(--gold-light);margin-bottom:8px">Your current profile</div>
+      <div id="i-summary" style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.8"></div>
+      <button class="btn btn-gold btn-full" style="margin-top:16px" onclick="saveInterests()">Save &amp; update AI →</button>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="page" id="page-set">
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Anthropic API Key</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Get it at <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold)">console.anthropic.com</a>.</p>
+      <div class="form-group"><label class="form-label">API Key</label><input class="form-input" id="s-apikey" type="password" placeholder="sk-ant-..."></div>
+      <button class="btn btn-primary btn-full" onclick="saveApiKey()">Save Key</button>
+      <div id="s-key-ok" style="font-size:12px;color:var(--emerald);margin-top:8px;display:none">✓ Saved</div>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">Alpha Vantage Key</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Free at <a href="https://alphavantage.co/support/#api-key" target="_blank" style="color:var(--gold)">alphavantage.co</a>. Used for live prices.</p>
+      <div class="form-group"><label class="form-label">Alpha Vantage Key</label><input class="form-input" id="s-avkey" type="text" placeholder="Your key here"></div>
+      <button class="btn btn-primary btn-full" onclick="saveAVKey()">Save Key</button>
+      <div id="s-av-ok" style="font-size:12px;color:var(--emerald);margin-top:8px;display:none">✓ Saved</div>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:6px">App password</div>
+      <div class="form-group" style="margin-top:12px"><label class="form-label">New Password</label><input class="form-input" id="s-pwd" type="password" placeholder="New password"></div>
+      <button class="btn btn-primary btn-full" onclick="savePwd()">Update Password</button>
+      <div id="s-pwd-ok" style="font-size:12px;color:var(--emerald);margin-top:8px;display:none">✓ Updated</div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
   <!-- Bottom Nav -->
+
   <nav class="bnav">
     <button class="nb active" onclick="nav('opp')" id="bnav-opp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg><span class="nb-label">Scan</span></button>
     <button class="nb" onclick="nav('port')" id="bnav-port"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg><span class="nb-label">Portfolio</span></button>
@@ -473,6 +479,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-
 </div>
 
 <!-- SHEETS -->
+
 <div class="overlay" id="sh-commit" onclick="bgClose(event,'sh-commit')">
   <div class="sheet"><div class="sheet-handle"></div>
     <div class="sheet-title" id="sc-title">Commit to Opportunity</div>
@@ -632,11 +639,25 @@ function toggleSidebar(){
 // PRICES
 function getAVKey(){return localStorage.getItem('v-av-key')||'';}
 async function fetchLivePrices(opps){
-  const k=getAVKey();if(!k)return opps;
+  const k=getAVKey();
+  if(!k){
+    // No AV key — mark all prices as unverified
+    return opps.map(o=>({...o,priceVerified:false}));
+  }
+  let rateLimited=false;
   for(let i=0;i<opps.length;i++){
+    if(rateLimited){opps[i].priceVerified=false;continue;}
     try{
+      setScanMsg(`Fetching live price for ${opps[i].ticker}… (${i+1}/${opps.length})`);
       const r=await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${opps[i].ticker}&apikey=${k}`);
       const d=await r.json();
+      // Detect rate limit response
+      if(d['Note']||d['Information']){
+        console.warn('Alpha Vantage rate limit hit');
+        rateLimited=true;
+        opps[i].priceVerified=false;
+        continue;
+      }
       const lp=parseFloat(d['Global Quote']?.['05. price']);
       if(lp&&!isNaN(lp)){
         opps[i].currentPrice=lp;
@@ -644,9 +665,15 @@ async function fetchLivePrices(opps){
         opps[i].targetPrice=parseFloat((lp*(1+absUpside/100)).toFixed(2));
         opps[i].stopLoss=parseFloat((lp*0.92).toFixed(2));
         opps[i].upside=absUpside;
+        opps[i].priceVerified=true;
+      } else {
+        opps[i].priceVerified=false;
       }
-    }catch(e){}
-    await new Promise(r=>setTimeout(r,300));
+    }catch(e){opps[i].priceVerified=false;}
+    await new Promise(r=>setTimeout(r,1200)); // 1.2s gap = max 5 calls/min on free tier
+  }
+  if(rateLimited){
+    console.warn('Some prices could not be fetched due to rate limit');
   }
   return opps;
 }
@@ -813,7 +840,7 @@ function oppCardHTML(o,isDaily){
     <p class="opp-thesis">${o.thesis}</p>
     ${conv}
     <div class="opp-metrics" style="margin-top:12px">
-      <div><div class="opp-metric-label">Current</div><div class="opp-metric-value">$${(o.currentPrice||0).toFixed(2)}</div></div>
+      <div><div class="opp-metric-label">Current ${o.priceVerified===false?'<span title="AI estimate — add Alpha Vantage key for live prices" style="color:var(--rose);cursor:help">~</span>':'<span title="Live price" style="color:var(--emerald)">✓</span>'}</div><div class="opp-metric-value">$${(o.currentPrice||0).toFixed(2)}</div></div>
       <div><div class="opp-metric-label">Target</div><div class="opp-metric-value">$${(o.targetPrice||0).toFixed(2)}</div></div>
       <div><div class="opp-metric-label">Upside</div><div class="opp-metric-value up">+${Math.abs(o.upside||0).toFixed(1)}%</div></div>
       <div><div class="opp-metric-label">Risk</div><div class="opp-metric-value">${o.riskLevel||'—'}</div></div>
@@ -1111,5 +1138,6 @@ async function init(){
 }
 checkLock();
 </script>
+
 </body>
 </html>
